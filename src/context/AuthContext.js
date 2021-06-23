@@ -1,13 +1,13 @@
 import createDataContext from './createDataContext';
-import tvApi from '../api/tvsmashupapi';
+import {catApi} from '../api/connections';
 import decode from 'jwt-decode';
-//import {navigate} from '../navigationRef';
 
 const defaultState = {
   authed: false,
   token: null,
   errorMessage: '',
   userId: null,
+  isAdmin: false,
   regSuccess: false,
   setForgotSuccess: false,
   changeSuccess: false,
@@ -29,6 +29,9 @@ const authReducer = (state,action) => {
     case 'setId':
       console.log('Setting ID', action.payload);
       return {...state,userId:action.payload};
+    case 'setIsAdmin':
+      console.log('Setting Admin', action.payload);
+      return {...state,isAdmin:action.payload};
     case 'signout':
       return {token: null, errorMessage: ''};
     case 'regSuccess':
@@ -61,7 +64,7 @@ const register = dispatch => async ({username,email,password,passchk}) => {
     //Make api request to sign up with that email and Password
 
     try {
-      const response = await tvApi.post('/api/register/',
+      const response = await catApi.post('/api/register/',
                                           {username,email,password,passchk}
                         )
                         .then(res => {
@@ -70,7 +73,7 @@ const register = dispatch => async ({username,email,password,passchk}) => {
                           dispatch({type:'regSuccess', payload:null});
                         });
     } catch (err) {
-      console.log(err);
+      console.log(err, err.response);
       dispatch({type:'add_error', payload: 'Something went wrong with sign up'});
     }
   };
@@ -80,7 +83,7 @@ const signin = (dispatch) => async ({email, password}) => {
   let signInSuccess;
   try {
     console.log(JSON.stringify({email,password}));
-    const response = await tvApi.post('/authenticate/',
+    const response = await catApi.post('/api/authenticate/',
                                         {email,password}
                       )
                       .then(res => {
@@ -92,6 +95,8 @@ const signin = (dispatch) => async ({email, password}) => {
                         const decoded = decode(res.data.access);
                         dispatch({type:'setAuthed', payload:true});
                         dispatch({type:'setId', payload:decoded.user_id});
+                        dispatch({type:'setIsAdmin', payload:decoded.is_admin});
+                        console.log("USER IS SIGNED IN", decoded);
                         //dispatch({type:'setSignInSuccess', payload:true});
                         signInSuccess = true;
                       });
@@ -141,7 +146,7 @@ const signout = dispatch => async () => {
 const forgotPassword = dispatch => async (data) => {
 
   try {
-    const response = await tvApi.post('/api/forgotpassword/',
+    const response = await catApi.post('/api/forgotpassword/',
                                         data
                       )
                       .then(res => {
@@ -161,7 +166,7 @@ const forgotPassword = dispatch => async (data) => {
 const changePassword = dispatch => async (data) => {
 
   try {
-    const response = await tvApi.post('/api/changepassword/',
+    const response = await catApi.post('/api/changepassword/',
                                         data
                       )
                       .then(res => {

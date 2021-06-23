@@ -9,7 +9,7 @@ const multipartConn = axios.create({
 });
 
 
-const tvApi = axios.create({
+const catApiAuth = axios.create({
     baseURL: 'http://127.0.0.1:8000',
     headers: {
         'Content-Type': 'application/json',
@@ -17,6 +17,13 @@ const tvApi = axios.create({
     }
 });
 
+const catApi = axios.create({
+    baseURL: 'http://127.0.0.1:8000',
+    headers: {
+        'Content-Type': 'application/json',
+    }
+});
 
 
-export {multipartConn, tvApi};
+
+export {multipartConn, catApi, catApiAuth};

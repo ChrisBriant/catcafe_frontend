@@ -8,7 +8,7 @@
 
 .App {
   text-align: center;
-  background-color: #fff7eb;
+  background-color: #faeae8;
   min-height: 100vh;
 }
 
@@ -29,7 +29,7 @@
 }
 
 h1,h2,h4 {
-  color: #5c6649;
+  color: #1c1918;
 }
 
 .main {
@@ -89,12 +89,19 @@ h1,h2,h4 {
 }
 
 .navbar-custom {
-  background-color:#61b15a;
+  background-color:#796460;
 }
 
-.navlinks-custom > a:: {
+/* .navlinks-custom > a:: {
 
 }
+
+
+
+.btn-outline-success {
+    color:  #fff76a !important;
+    border-color: #fff76a !important;
+} */
 
 .navbar-light .navbar-nav .nav-link {
     color: #fff !important;
@@ -102,11 +109,6 @@ h1,h2,h4 {
 
 .navbar-light .navbar-nav .nav-link:hover {
     color: #fff76a !important;
-}
-
-.btn-outline-success {
-    color:  #fff76a !important;
-    border-color: #fff76a !important;
 }
 
 .navbar-light .navbar-toggler-icon {
@@ -132,22 +134,51 @@ h1,h2,h4 {
   color: #b34436;
 }
 
+.page-img {
+  width: 100%;
+  height: 60vh;
+}
+
+iframe {
+  width: 100%;
+  height: 60vh;
+}
+
+section {
+  padding: 10%;
+}
+
+section:nth-child(odd) {
+    background-color: #fff;
+}
+section:nth-child(even) {
+    background-color: #f0e0de;
+}
+
 /**************************HERO IMAGE SECTION******************************/
 
 header {
-  background-image: -webkit-gradient(linear,left top, left bottom,from(rgba(255, 255, 255, 0.9)),to(rgba(255, 255, 255, 0.9))),url("http://localhost:3000/smashupmontage.png");
-  background-image: linear-gradient(rgba(255, 255, 255, 0.9),rgba(255, 255, 255, 0.9)),url("http://localhost:3000/smashupmontage.png");
+  background-image: -webkit-gradient(linear,left top, left bottom,from(rgba(255, 255, 255, 0.9)),to(rgba(255, 255, 255, 0.9))),url("http://localhost:3000/paws.png");
+  background-image: linear-gradient(rgba(255, 255, 255, 0.9),rgba(255, 255, 255, 0.9)),url("http://localhost:3000/paws.png");
+  background-repeat: repeat;
   min-height :88vh;
   overflow: hidden;
-  background-size: cover;
+  background-color: #f0e0de;
   background-position: center;
   background-attachment: fixed;
 }
 
-header > h1 {
-  opacity: 1;
+.logo-image {
+  width: 50%;
 }
 
+
+
+/**********************SECTIONS*********************************************/
+
+/*#about {
+  background-color: #fff;
+}*/
 
 /**********************vs image********************************************/
 .vsimg-small {
@@ -159,4 +190,48 @@ header > h1 {
 footer {
   min-height:10vh;
   background-color: #ffce89;
+}
+
+/***********************modals******************************************/
+
+.modal-80w {
+  min-width:80%;
+}
+
+
+.map-container{
+  height: 80vh;
+  width: 100%;
+}
+
+/**********************cards************************************************/
+
+.card-header{
+  background-color: #796460 !important;
+  color: #fff;
+}
+
+.card {
+  width: 50% !important;
+  margin: auto;
+}
+
+/*
+.card-img-top {
+  max-height: 340px !important;
+}*/
+
+/*
+.cat-container {
+  display: block;
+  margin: auto;
+}*/
+
+
+@media only screen and (max-width: 767px) {
+  .card {
+    width: 100% !important;
+    margin: auto;
+  }
+
 }

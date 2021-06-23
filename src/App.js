@@ -1,9 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 import {Provider as AuthProvider} from './context/AuthContext';
-import {Provider as SmashUpProvider} from './context/SmashUpContext';
-import {Provider as UIControlProvider} from './context/UIControlContext';
-import Main from './Main';
+import {Provider as ApiProvider} from './context/ApiContext';
+import Main from './neutral/Main';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -11,13 +10,11 @@ function App() {
 
   return (
     <AuthProvider>
-      <SmashUpProvider>
-        <UIControlProvider>
-          <div className="App">
-            <Main />
-          </div>
-        </UIControlProvider>
-      </SmashUpProvider>
+      <ApiProvider>
+        <div className="App">
+          <Main />
+        </div>
+      </ApiProvider>
     </AuthProvider>
   );
 }
