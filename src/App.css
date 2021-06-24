@@ -227,6 +227,49 @@ footer {
   margin: auto;
 }*/
 
+/**********************calendar************************************************/
+
+.active-day {
+  background-color: #f7f3f2;
+}
+
+.inactive-day {
+  background-color: #e6e6e6;
+}
+
+.day-number {
+  display: block;
+  font-size: 120%;
+}
+
+.day-availability {
+  display: block;
+  font-size: 80%;
+}
+
+.book-btn {
+  font: inherit;
+  border: 1px solid #8a7d5b;
+  background: #ebd7a0;
+  padding: 0.5rem 1rem;
+  color: #5e5b54;
+  font-size: 80%;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.26);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.book-btn:hover,
+.book-btn:active {
+  background: #f2dda2;
+  border-color: #8a7d5b;
+  box-shadow: 1px 1px 8px rgba(77, 51, 51, 0.26);
+}
+
+
+/**********************Media Queries************************************************/
+
 
 @media only screen and (max-width: 767px) {
   .card {
