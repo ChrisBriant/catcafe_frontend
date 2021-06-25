@@ -25,41 +25,37 @@ const Calendar = props => {
           <Row key={week[0].date}>
           {
             week.map((day) => (
-              <Col className={day.className}  key={day.date} >
+              day.active
+              ? <>
                 {
-                  day.active
+                  !day.gone
                   ? <>
                     {
-                      !day.gone
-                      ? <>
-                        {
-                          day.available
-                          ? <>
-                            <span className="day-number">{day.day}</span>
-                            <button className="book-btn">
-                              <span className="day-availability">{day.available} spaces</span>
-                              <span className="day-availability">book now!</span>
-                            </button>
-                          </>
-                          : <>
-                            <span className="day-number">{day.day}</span>
-                            <span className="day-availability">Fully Booked</span>
-                          </>
-                        }
-                      </>
-                      : <>
+                      day.available
+                      ? <Col className="active-day" key={day.date} >
+                        <span className="day-number">{day.day}</span>
+                        <button className="book-btn">
+                          <span className="day-availability">{day.available} spaces</span>
+                          <span className="day-availability">book now!</span>
+                        </button>
+                      </Col>
+                      : <Col className="active-day"  key={day.date} >
                         <span className="day-number">{day.day}</span>
                         <span className="day-availability">Fully Booked</span>
-                      </>
+                      </Col>
                     }
                   </>
-                  : <>
+                  : <Col className="inactive-day"  key={day.date} >
                     <span className="day-number">{day.day}</span>
-                  </>
+                    <span className="day-availability">Fully Booked</span>
+                  </Col>
                 }
+              </>
+              : <Col className="inactive-day"  key={day.date} >
+                <span className="day-number">{day.day}</span>
               </Col>
-              ))
-            }
+            ))
+          }
           </Row>
         ))
       }

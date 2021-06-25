@@ -69,6 +69,8 @@ export const transformMonthData = (year,month,slots) => {
     if(beforeMonth.getDay() >  0) {
       monthData.push({
         active:false,
+        gone: true,
+        className: 'inactive-day',
         day: beforeMonth.getDate(),
         date: new Date(beforeMonth.getTime())
       });
@@ -79,21 +81,32 @@ export const transformMonthData = (year,month,slots) => {
   //Sandwich the actual month
   //Process the bulk of the calendar month
   for(let i=0;i<lastOfMonth.getDate();i++) {
-    //const available = slots[`${formatDate(firstOfMonth)}`].available;
+    let gone = false;
+    let className = 'active-day';
+    if(Date.now() >= firstOfMonth) {
+      gone = true;
+      className = 'passed-day';
+    }
+    console.log(slots[`${formatDate(firstOfMonth)}`].available);
     monthData.push({
       active:true,
+      gone: gone,
+      className: className,
       day: firstOfMonth.getDate(),
       date: new Date(firstOfMonth.getTime()),
       available: slots[`${formatDate(firstOfMonth)}`].available
     });
     firstOfMonth.setDate(firstOfMonth.getDate() + 1);
   }
-  lastOfMonth.setDate(lastOfMonth.getDate() + 1);
 
   //Get the end of the month
+  lastOfMonth.setDate(lastOfMonth.getDate() + 1);
+
   while(lastOfMonth.getDay() !== 1) {
     monthData.push({
       active:false,
+      gone:false,
+      className: 'inactive-day',
       day: lastOfMonth.getDate(),
       date: new Date(lastOfMonth.getTime())
     });

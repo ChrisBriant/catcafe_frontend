@@ -1,10 +1,11 @@
 import createDataContext from './createDataContext';
 import {catApiAuth, catApi} from '../api/connections';
-//import {transformMonthData} from '../helpers/general';
+import {transformMonthData} from '../helpers/general';
 
 const defaultState = {
   cats: [],
-  calMonth: {}
+  calMonth: {},
+  displayCalendar: []
 };
 
 const apiReducer = (state,action) => {
@@ -16,6 +17,8 @@ const apiReducer = (state,action) => {
       return {...state,cats:action.payload};
     case 'setMonth':
       return {...state,calMonth:action.payload};
+    case 'setDisplayCalendar':
+      return {...state,displayCalendar:action.payload};
     default:
       return defaultState;
   }
@@ -41,11 +44,15 @@ const getBookings = (dispatch) => async (year,month) => {
                         .then(res => {
                           console.log("success",res.data);
                           dispatch({type:'setMonth', payload:res.data});
+                          dispatch({type:'setDisplayCalendar',
+                                    payload:transformMonthData(year,month,res.data)});
                         });
     } catch (err) {
       console.log(err, err.response);
       dispatch({type:'add_error', payload: 'An issue occured retrieving data'});
+
     }
+
 }
 
 
