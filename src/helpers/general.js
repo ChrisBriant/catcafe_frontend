@@ -83,7 +83,10 @@ export const transformMonthData = (year,month,slots) => {
   for(let i=0;i<lastOfMonth.getDate();i++) {
     let gone = false;
     let className = 'active-day';
-    if(Date.now() >= firstOfMonth) {
+    let dtNow = new Date()
+    dtNow.setDate(dtNow.getDate()-1)
+    console.log('DATE',dtNow.getDate(),firstOfMonth);
+    if(dtNow >= firstOfMonth) {
       gone = true;
       className = 'passed-day';
     }
