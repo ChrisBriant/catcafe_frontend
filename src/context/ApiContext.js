@@ -5,7 +5,9 @@ import {transformMonthData} from '../helpers/general';
 const defaultState = {
   cats: [],
   calMonth: {},
-  displayCalendar: []
+  displayCalendar: [],
+  day: {},
+  dayView: false
 };
 
 const apiReducer = (state,action) => {
@@ -19,6 +21,11 @@ const apiReducer = (state,action) => {
       return {...state,calMonth:action.payload};
     case 'setDisplayCalendar':
       return {...state,displayCalendar:action.payload};
+    case 'setDay':
+      let day = state.calMonth[action.payload];
+      day.dateStr = action.payload;
+      console.log('Set the day', day);
+      return {...state,day:day,dayView:true};
     default:
       return defaultState;
   }
@@ -55,9 +62,14 @@ const getBookings = (dispatch) => async (year,month) => {
 
 }
 
+const setDay = (dispatch) => (dateStr) => {
+  console.log('DAY');
+  dispatch({type:'setDay', payload: dateStr});
+}
+
 
 export const {Provider, Context} = createDataContext (
   apiReducer,
-  { getCats,getBookings},
+  { getCats,getBookings,setDay},
   {...defaultState}
 );

@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 
 const Calendar = props => {
   const d = new Date();
-  const {getBookings,state:{calMonth,displayCalendar}} = useContext(ApiContext);
+  const {getBookings,setDay,state:{calMonth,displayCalendar}} = useContext(ApiContext);
   const [month,setMonth] = useState(d.getUTCMonth()+1);
   const [year,setYear] = useState(d.getUTCFullYear());
   //const [displayCalendar, setDisplayCalendar] = useState([]);
@@ -35,6 +35,12 @@ const Calendar = props => {
     setYear(newYear);
   }
 
+  const goToDay = (dateStr) => {
+    console.log('GO TO DAY', dateStr);
+    setDay(dateStr);
+    
+  }
+
 
   return (
     <>
@@ -60,7 +66,7 @@ const Calendar = props => {
                               day.available
                               ? <>
                                 <span className="day-number">{day.day}</span>
-                                <button className="book-btn">
+                                <button className="book-btn" onClick={() => goToDay(day.dateStr)}>
                                   <span className="day-availability">book now!</span>
                                 </button>
                               </>

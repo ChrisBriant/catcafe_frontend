@@ -91,7 +91,9 @@ export const transformMonthData = (year,month,slots) => {
         gone: true,
         className: 'inactive-day',
         day: beforeMonth.getDate(),
-        date: new Date(beforeMonth.getTime())
+        date: new Date(beforeMonth.getTime()),
+        //dateStr: `${beforeMonth.getFullYear()}-${beforeMonth.getMonth()}-${beforeMonth.getDate()}`
+        dateStr: formatDate(beforeMonth)
       });
     }
     beforeMonth = new Date(beforeMonth.setDate(beforeMonth.getDate() + 1));
@@ -114,7 +116,9 @@ export const transformMonthData = (year,month,slots) => {
       className: className,
       day: firstOfMonth.getDate(),
       date: new Date(firstOfMonth.getTime()),
-      available: slots[`${formatDate(firstOfMonth)}`].available
+      available: slots[`${formatDate(firstOfMonth)}`].available,
+      //dateStr: `${beforeMonth.getFullYear()}-${beforeMonth.getMonth()}-${beforeMonth.getDate()}`
+      dateStr: formatDate(firstOfMonth)
     });
     firstOfMonth.setDate(firstOfMonth.getDate() + 1);
   }
@@ -128,10 +132,21 @@ export const transformMonthData = (year,month,slots) => {
       gone:false,
       className: 'inactive-day',
       day: lastOfMonth.getDate(),
-      date: new Date(lastOfMonth.getTime())
+      date: new Date(lastOfMonth.getTime()),
+      dateStr: formatDate(lastOfMonth)
     });
     lastOfMonth.setDate(lastOfMonth.getDate() + 1);
   }
   //Return month data partitioned into weeks
   return(splitArray(monthData,7));
+}
+
+
+//Helper to get the day data into a presentable format
+export function transformDayData(day) {
+  console.log('TIMES',day.times);
+  for(let i=0;i<day.times.length;i++) {
+    let timeAsDate = new Date(`${day.dateStr}T${day.times[i]}`);
+    console.log('Time as Date', timeAsDate);
+  }
 }

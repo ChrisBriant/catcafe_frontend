@@ -7,12 +7,15 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 import Spacer from '../components/Spacer';
 import Calendar from '../components/Calendar';
+import Day from '../components/Day';
 import {Context} from '../context/AuthContext';
+import {Context as ApiContext} from '../context/ApiContext';
 
 
 
 const Booking = () => {
   const {state:{authed}} = useContext(Context);
+  const {state:{dayView}} = useContext(ApiContext);
 
   console.log("Hello");
 
@@ -22,8 +25,11 @@ const Booking = () => {
         {
           authed
           ? <>
-
-            <Calendar/>
+            {
+              !dayView
+              ? <Calendar/>
+              : <Day/>
+            }
           </>
           : <>
             <Calendar/>
