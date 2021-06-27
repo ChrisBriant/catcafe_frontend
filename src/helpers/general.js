@@ -144,9 +144,27 @@ export const transformMonthData = (year,month,slots) => {
 
 //Helper to get the day data into a presentable format
 export function transformDayData(day) {
+  let daySlots = [];
   console.log('TIMES',day.times);
-  for(let i=0;i<day.times.length;i++) {
-    let timeAsDate = new Date(`${day.dateStr}T${day.times[i]}`);
-    console.log('Time as Date', timeAsDate);
+  let timeKeys = Object.keys(day.times);
+  for(let i=0;i<timeKeys.length;i++) {
+    let timeAsDate = new Date(`${day.dateStr}T${timeKeys[i]}`);
+    let booked = day.times[timeKeys[i]];
+    let className = 'slot-available'
+    if(booked) {
+      className = 'slot-booked';
+    }
+    if(timeAsDate < Date.now()) {
+      className = 'slot-unavailable';
+      booked =  true;
+    }
+    let slotObj = {
+      time: timeKeys[i],
+      booked : booked,
+      className: className
+    }
+    daySlots.push(slotObj);
   }
+  console.log('SLOT OBJ',daySlots);
+  return daySlots;
 }

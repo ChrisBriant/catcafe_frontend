@@ -1,12 +1,13 @@
 import createDataContext from './createDataContext';
 import {catApiAuth, catApi} from '../api/connections';
-import {transformMonthData} from '../helpers/general';
+import {transformMonthData, transformDayData} from '../helpers/general';
 
 const defaultState = {
   cats: [],
   calMonth: {},
   displayCalendar: [],
   day: {},
+  displayDay: [],
   dayView: false
 };
 
@@ -25,7 +26,7 @@ const apiReducer = (state,action) => {
       let day = state.calMonth[action.payload];
       day.dateStr = action.payload;
       console.log('Set the day', day);
-      return {...state,day:day,dayView:true};
+      return {...state,day:day,dayView:true,displayDay:transformDayData(day)};
     default:
       return defaultState;
   }
