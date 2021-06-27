@@ -1,8 +1,9 @@
 import {useEffect,useState,useContext} from 'react';
 import {Context as ApiContext} from '../context/ApiContext';
-import {transformMonthData} from '../helpers/general';
+import {getMonthName} from '../helpers/general';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 
 const Calendar = props => {
   const d = new Date();
@@ -13,56 +14,80 @@ const Calendar = props => {
 
   useEffect(() => {
     getBookings(year,month);
+    //console.log('month name',getMonthName(month));
   },[]);
 
-  console.log('hello',displayCalendar);
+  //console.log('hello',displayCalendar);
+
+  const changeMonth = (moveVal) => {
+    let newMonth = month + moveVal;
+    let newYear = year;
+    if(newMonth == -1) {
+      newMonth = 12;
+      newYear--;
+    }
+    if(newMonth == 13) {
+      newMonth = 1;
+      newYear++;
+    }
+    getBookings(newYear,newMonth);
+    setMonth(newMonth);
+    setYear(newYear);
+  }
 
 
   return (
     <>
-      {
-        displayCalendar.map((week) => (
-          <Row key={week[0].date}>
+      <h2>{getMonthName(month)}, {year}</h2>
+      <Row>
+        <Col md={1}>
+          <button className='cal-skip-btn' onClick={() => changeMonth(-1)}>{'<'}</button>
+        </Col>
+        <Col md={10}>
           {
-            week.map((day) => (
-              <Col className={day.className}  key={day.date} >
-                {
-                  day.active
-                  ? <>
+            displayCalendar.map((week) => (
+              <Row key={week[0].date}>
+              {
+                week.map((day) => (
+                  <Col className={day.className}  key={day.date} >
                     {
-                      !day.gone
+                      day.active
                       ? <>
                         {
-                          day.available
+                          !day.gone
                           ? <>
-                            <span className="day-number">{day.day}</span>
-                            <button className="book-btn">
-                              <span className="day-availability">{day.available} spaces</span>
-                              <span className="day-availability">book now!</span>
-                            </button>
+                            {
+                              day.available
+                              ? <>
+                                <span className="day-number">{day.day}</span>
+                                <button className="book-btn">
+                                  <span className="day-availability">book now!</span>
+                                </button>
+                              </>
+                              : <>
+                                <span className="day-number">{day.day}</span>
+                                <span className="day-availability">Fully Booked</span>
+                              </>
+                            }
                           </>
                           : <>
                             <span className="day-number">{day.day}</span>
-                            <span className="day-availability">Fully Booked</span>
                           </>
                         }
                       </>
                       : <>
                         <span className="day-number">{day.day}</span>
-                        <span className="day-availability">Fully Booked</span>
                       </>
                     }
-                  </>
-                  : <>
-                    <span className="day-number">{day.day}</span>
-                  </>
+                  </Col>
+                  ))
                 }
-              </Col>
-              ))
-            }
-          </Row>
-        ))
-      }
+              </Row>
+            ))
+          }
+        </Col>
+        <Col md={1}><button className='cal-skip-btn' onClick={() =>changeMonth(1)}>{'>'}</button></Col>
+      </Row>
     </>
   );
 }

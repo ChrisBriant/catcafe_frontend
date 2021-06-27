@@ -26,6 +26,25 @@ function formatDate(date) {
     return [year, month, day].join('-');
 }
 
+const monthNames = {
+  1: 'January',
+  2: 'February',
+  3: 'March',
+  4: 'April',
+  5: 'May',
+  6: 'June',
+  7: 'July',
+  8: 'August',
+  9: 'September',
+  10: 'October',
+  11: 'November',
+  12: 'December'
+}
+
+export function getMonthName(monthNo) {
+  return monthNames[monthNo];
+}
+
 /*
 TEST CASES
 Beginning part
@@ -85,12 +104,10 @@ export const transformMonthData = (year,month,slots) => {
     let className = 'active-day';
     let dtNow = new Date()
     dtNow.setDate(dtNow.getDate()-1)
-    console.log('DATE',dtNow.getDate(),firstOfMonth);
     if(dtNow >= firstOfMonth) {
       gone = true;
       className = 'passed-day';
     }
-    console.log(slots[`${formatDate(firstOfMonth)}`].available);
     monthData.push({
       active:true,
       gone: gone,

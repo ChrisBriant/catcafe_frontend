@@ -231,10 +231,28 @@ footer {
 
 .active-day {
   background-color: #f7f3f2;
+  border: 1px solid #b8b8b8;
+  min-height: 80px;
 }
 
 .inactive-day {
   background-color: #e6e6e6;
+  border: 1px solid #b8b8b8;
+  min-height: 80px;
+}
+
+.passed-day {
+  background: repeating-linear-gradient(
+    45deg,
+      #e6e6e6,
+      #e6e6e6 10px,
+      #b8b8b8 10px,
+      #b8b8b8 20px
+  );
+  border: 1px solid #b8b8b8;
+  /*background-color: #b8b8b8;*/
+  min-height: 80px;
+
 }
 
 .day-number {
@@ -244,9 +262,17 @@ footer {
 
 .day-availability {
   display: block;
-  font-size: 80%;
 }
 
+.passed-day {
+
+}
+
+.cal-skip-btn {
+  height: 100%;
+}
+
+.cal-skip-btn,
 .book-btn {
   font: inherit;
   border: 1px solid #8a7d5b;
