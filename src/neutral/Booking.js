@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button';
 import Spacer from '../components/Spacer';
 import Calendar from '../components/Calendar';
 import Day from '../components/Day';
+import Tables from '../components/Tables';
 import {Context} from '../context/AuthContext';
 import {Context as ApiContext} from '../context/ApiContext';
 
@@ -15,7 +16,7 @@ import {Context as ApiContext} from '../context/ApiContext';
 
 const Booking = () => {
   const {state:{authed}} = useContext(Context);
-  const {state:{dayView}} = useContext(ApiContext);
+  const {state:{dayView,tableView}} = useContext(ApiContext);
 
   console.log("Hello");
 
@@ -28,7 +29,13 @@ const Booking = () => {
             {
               !dayView
               ? <Calendar/>
-              : <Day/>
+              : <>
+                {
+                  !tableView
+                  ? <Day/>
+                  : <Tables/>
+                }
+                </>
             }
           </>
           : <>

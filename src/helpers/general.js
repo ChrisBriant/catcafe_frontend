@@ -144,13 +144,27 @@ export const transformMonthData = (year,month,slots) => {
 
 //Helper to get the day data into a presentable format
 export function transformDayData(day) {
-  let daySlots = [];
+  let daySlots = {
+    1: [],
+    2: [],
+    3: []
+  };
   console.log('TIMES',day.times);
   let timeKeys = Object.keys(day.times);
+  let slotPartition = 1;
   for(let i=0;i<timeKeys.length;i++) {
     let timeAsDate = new Date(`${day.dateStr}T${timeKeys[i]}`);
-    let booked = day.times[timeKeys[i]];
+    let booked = day.times[timeKeys[i]].booked;
     let className = 'slot-available'
+
+    //Control the partition value
+    if(timeKeys[i] === '12:30') {
+      slotPartition = 2;
+    }
+    if(timeKeys[i] === '16:30') {
+      slotPartition = 3;
+    }
+
     if(booked) {
       className = 'slot-booked';
     }
@@ -158,13 +172,31 @@ export function transformDayData(day) {
       className = 'slot-unavailable';
       booked =  true;
     }
+    console.log('TIME KEY',timeKeys[i].booked )
     let slotObj = {
       time: timeKeys[i],
       booked : booked,
       className: className
     }
-    daySlots.push(slotObj);
+    daySlots[slotPartition].push(slotObj);
   }
   console.log('SLOT OBJ',daySlots);
   return daySlots;
+}
+
+export function transformTableData(tables) {
+  let tablesObj = {
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+    6: false,
+    7: false,
+    8: false
+  }
+  for(let i=0;i<tables.length;i++) {
+    tablesObj[tables[i].table_number] = true;
+  }
+  return tablesObj;
 }

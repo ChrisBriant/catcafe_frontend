@@ -1,14 +1,17 @@
 import createDataContext from './createDataContext';
 import {catApiAuth, catApi} from '../api/connections';
 import {transformMonthData, transformDayData} from '../helpers/general';
+import moment from 'moment';
 
 const defaultState = {
   cats: [],
   calMonth: {},
   displayCalendar: [],
   day: {},
+  tables: {},
   displayDay: [],
-  dayView: false
+  dayView: false,
+  tableView: false
 };
 
 const apiReducer = (state,action) => {
@@ -25,8 +28,12 @@ const apiReducer = (state,action) => {
     case 'setDay':
       let day = state.calMonth[action.payload];
       day.dateStr = action.payload;
-      console.log('Set the day', day);
+      //Format it to a more display friendly date using moment
+      let displayDate = moment(day.dateStr).format('LL');
+      day.displayDate  = displayDate;
       return {...state,day:day,dayView:true,displayDay:transformDayData(day)};
+    case 'setTables':
+      return {...state,tables:action.payload,tableView:true};
     default:
       return defaultState;
   }
@@ -68,9 +75,13 @@ const setDay = (dispatch) => (dateStr) => {
   dispatch({type:'setDay', payload: dateStr});
 }
 
+const setTables = (dispatch) => (tableData) => {
+  dispatch({type:'setTables', payload: tableData});
+}
+
 
 export const {Provider, Context} = createDataContext (
   apiReducer,
-  { getCats,getBookings,setDay},
+  { getCats,getBookings,setDay,setTables},
   {...defaultState}
 );
