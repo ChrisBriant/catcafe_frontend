@@ -186,17 +186,37 @@ export function transformDayData(day) {
 
 export function transformTableData(tables) {
   let tablesObj = {
-    1: false,
-    2: false,
-    3: false,
-    4: false,
-    5: false,
-    6: false,
-    7: false,
-    8: false
+    1: { booked: false,
+         className: 'svg-table'
+    },
+    2: { booked: false,
+         className: 'svg-table'
+    },
+    3: { booked: false,
+         className: 'svg-table'
+    },
+    4: { booked: false,
+         className: 'svg-table'
+    },
+    5: { booked: false,
+         className: 'svg-table'
+    },
+    6: { booked: false,
+         className: 'svg-table'
+    },
+    7: { booked: false,
+         className: 'svg-table'
+    },
+    8: { booked: false,
+         className: 'svg-table'
+    },
   }
   for(let i=0;i<tables.length;i++) {
-    tablesObj[tables[i].table_number] = true;
+    let tableObj = {
+      booked: true,
+      className: 'svg-booked-table'
+    };
+    tablesObj[tables[i].table_number] = tableObj;
   }
   return tablesObj;
 }

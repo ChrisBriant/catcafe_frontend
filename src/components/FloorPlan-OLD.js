@@ -150,7 +150,7 @@ const FloorPlan = props => {
           opacity="0.997"
         ></path>
         <g
-          aria-label="Table 1 (4 pers)"
+          ariaLabel="Table 1 (4 pers)"
           style={{
             lineHeight: "1.25",
             InkscapeFontSpecification: "sans-serif",
@@ -323,7 +323,7 @@ const FloorPlan = props => {
         ></path>
         <path
           fill="#ebd7a0"
-          className={props.tables['8'].className}
+          class="svg-table"
           onClick={() => bookTable(8)}
           fillOpacity="1"
           stroke="#000"
@@ -335,7 +335,7 @@ const FloorPlan = props => {
           opacity="0.997"
         ></path>
         <g
-          aria-label="Table 2 (4 pers)"
+          ariaLabel="Table 2 (4 pers)"
           style={{
             lineHeight: "1.25",
             InkscapeFontSpecification: "sans-serif",
@@ -455,7 +455,7 @@ const FloorPlan = props => {
           ></path>
         </g>
         <g
-          aria-label="Table 3 (4 pers)"
+          ariaLabel="Table 3 (4 pers)"
           style={{
             lineHeight: "1.25",
             InkscapeFontSpecification: "sans-serif",
@@ -575,7 +575,7 @@ const FloorPlan = props => {
           ></path>
         </g>
         <g
-          aria-label="Table 4 (4 pers)"
+          ariaLabel="Table 4 (4 pers)"
           style={{
             lineHeight: "1.25",
             InkscapeFontSpecification: "sans-serif",
@@ -695,7 +695,7 @@ const FloorPlan = props => {
           ></path>
         </g>
         <g
-          aria-label="Table 5 (6 pers)"
+          ariaLabel="Table 5 (6 pers)"
           style={{
             lineHeight: "1.25",
             InkscapeFontSpecification: "sans-serif",
@@ -815,7 +815,7 @@ const FloorPlan = props => {
           ></path>
         </g>
         <g
-          aria-label="Table 6 (2 pers)"
+          ariaLabel="Table 6 (2 pers)"
           style={{
             lineHeight: "1.25",
             InkscapeFontSpecification: "sans-serif",
@@ -935,7 +935,7 @@ const FloorPlan = props => {
           ></path>
         </g>
         <g
-          aria-label="Table 7 (2 pers)"
+          ariaLabel="Table 7 (2 pers)"
           style={{
             lineHeight: "1.25",
             InkscapeFontSpecification: "sans-serif",
@@ -952,7 +952,7 @@ const FloorPlan = props => {
 
         </g>
         <g
-          aria-label="Table 8 (2 pers)"
+          ariaLabel="Table 8 (2 pers)"
           style={{
             lineHeight: "1.25",
             InkscapeFontSpecification: "sans-serif",
@@ -1072,7 +1072,7 @@ const FloorPlan = props => {
           ></path>
         </g>
         <g
-          aria-label="BAR"
+          ariaLabel="BAR"
           style={{ lineHeight: "1.25" }}
           strokeWidth="0.265"
           fontFamily="sans-serif"
@@ -1421,7 +1421,7 @@ const FloorPlan = props => {
         </g>
         <g
           strokeWidth="0.265"
-          aria-label="CAT PLAY AREA"
+          ariaLabel="CAT PLAY AREA"
           style={{
             lineHeight: "1.25",
             InkscapeFontSpecification: "'Fredoka One'",
@@ -1527,7 +1527,7 @@ const FloorPlan = props => {
           ></path>
         </g>
         <g
-          aria-label="Table 7 (2 pers)"
+          ariaLabel="Table 7 (2 pers)"
           style={{
             lineHeight: "1.25",
             InkscapeFontSpecification: "sans-serif",

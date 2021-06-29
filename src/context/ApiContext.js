@@ -1,6 +1,6 @@
 import createDataContext from './createDataContext';
 import {catApiAuth, catApi} from '../api/connections';
-import {transformMonthData, transformDayData} from '../helpers/general';
+import {transformMonthData, transformDayData, transformTableData} from '../helpers/general';
 import moment from 'moment';
 
 const defaultState = {
@@ -10,6 +10,7 @@ const defaultState = {
   day: {},
   tables: {},
   displayDay: [],
+  displayTables: {},
   dayView: false,
   tableView: false
 };
@@ -33,7 +34,9 @@ const apiReducer = (state,action) => {
       day.displayDate  = displayDate;
       return {...state,day:day,dayView:true,displayDay:transformDayData(day)};
     case 'setTables':
-      return {...state,tables:action.payload,tableView:true};
+      let displayTables = transformTableData(action.payload.tables.tables);
+      console.log('SET TABLES', displayTables);
+      return {...state,tables:action.payload,tableView:true,displayTables:displayTables};
     default:
       return defaultState;
   }
