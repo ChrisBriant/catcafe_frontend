@@ -5,6 +5,7 @@ const FloorPlan = props => {
 
   const bookTable = (tableNo) => {
     console.log('table clicked', tableNo);
+    props.bookTable(tableNo);
   }
 
   return (

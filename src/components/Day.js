@@ -21,7 +21,7 @@ const Day = props => {
     console.log("BOOK SLOT", slot);
     if(!slot.booked) {
       console.log('SLOT IS', day.times[slot.time]);
-      setTables({dateStr:day.dateStr,tables:day.times[slot.time]});
+      setTables({dateStr:day.dateStr,timeStr:slot.time,tables:day.times[slot.time]});
     }
   }
 

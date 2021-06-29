@@ -37,6 +37,8 @@ const apiReducer = (state,action) => {
       let displayTables = transformTableData(action.payload.tables.tables);
       console.log('SET TABLES', displayTables);
       return {...state,tables:action.payload,tableView:true,displayTables:displayTables};
+    case 'setBooking':
+      return {...state,tableView:false,dayView:false};
     default:
       return defaultState;
   }
@@ -68,7 +70,6 @@ const getBookings = (dispatch) => async (year,month) => {
     } catch (err) {
       console.log(err, err.response);
       dispatch({type:'add_error', payload: 'An issue occured retrieving data'});
-
     }
 
 }
@@ -82,9 +83,22 @@ const setTables = (dispatch) => (tableData) => {
   dispatch({type:'setTables', payload: tableData});
 }
 
+const makeBooking = (dispatch) => async (bookingData) => {
+  try {
+    const response = await catApiAuth.post('/api/makebooking/', bookingData)
+                      .then(res => {
+                        console.log("success",res.data);
+                        dispatch({type:'setBooking', payload:res.data});
+                      });
+  } catch (err) {
+    console.log(err, err.response);
+    dispatch({type:'add_error', payload: 'An issue occured making the booking.'});
+  }
+}
+
 
 export const {Provider, Context} = createDataContext (
   apiReducer,
-  { getCats,getBookings,setDay,setTables},
+  { getCats,getBookings,setDay,setTables,makeBooking},
   {...defaultState}
 );

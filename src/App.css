@@ -355,6 +355,27 @@ footer {
   fill: #e6e6e6;
 }
 
+/********************Modals******************************************************/
+
+/*
+.modal-80w {
+  text-align: center;
+  width: 40px;
+}
+
+.modal-header {
+  text-align: center !important;
+}
+
+
+div.fade.in.modal {
+  display:flex !important;
+}
+
+.modal-dialog {
+  margin: auto;
+}
+*/
 /**********************Media Queries************************************************/
 
 
