@@ -27,7 +27,7 @@ const MessageDialog = props => {
           dialogClassName="modal-60w"
           >
           <Modal.Header closeButton>
-            <Modal.Title className="modal-center">Booking Success</Modal.Title>
+            <Modal.Title className="modal-center">{props.title}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Container>

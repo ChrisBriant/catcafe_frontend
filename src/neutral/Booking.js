@@ -9,6 +9,7 @@ import Spacer from '../components/Spacer';
 import Calendar from '../components/Calendar';
 import Day from '../components/Day';
 import Tables from '../components/Tables';
+import MessageDialog from '../components/MessageDialog';
 import {Context} from '../context/AuthContext';
 import {Context as ApiContext} from '../context/ApiContext';
 
@@ -16,12 +17,24 @@ import {Context as ApiContext} from '../context/ApiContext';
 
 const Booking = () => {
   const {state:{authed}} = useContext(Context);
-  const {state:{dayView,tableView}} = useContext(ApiContext);
+  const {clearBooking,state:{dayView,tableView,bookingMade}} = useContext(ApiContext);
+  //const [showDiag,setShowDiag] = useState(false);
 
   console.log("Hello");
 
+  // const cancelDialog = () => {
+  //   clearBooking();
+  //   setShowDiag(false);
+  // }
+
   return (
       <>
+        <MessageDialog
+          show={bookingMade}
+          cancelDialog={() => clearBooking(false)}
+          message="You have successfully made a booking"
+          title="Booking Success"
+        />
         <p>Some text</p>
         {
           authed

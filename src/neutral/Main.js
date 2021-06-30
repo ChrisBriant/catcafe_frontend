@@ -11,6 +11,7 @@ import MeetTheCats from '../unauthflow/MeetTheCats';
 import Signin from '../unauthflow/Signin';
 import Register from '../unauthflow/Register';
 import Home from '../unauthflow/Home';
+import MyBookings from '../authflow/MyBookings';
 import PasswordReset from '../unauthflow/PasswordReset';
 import ForgotPassword from '../unauthflow/ForgotPassword';
 import {Context} from '../context/AuthContext';
@@ -47,6 +48,7 @@ const Main = () => {
                     authed
                     ? <>
                       <Nav.Link href="/book">Book Now</Nav.Link>
+                      <Nav.Link href="/mybookings">My Bookings</Nav.Link>
                     </>
                     : <>
                       <Nav.Link href="/signin">Signin</Nav.Link>
@@ -70,6 +72,9 @@ const Main = () => {
               ? <>
                 <Route exact path="/book">
                     <Booking/>
+                </Route>
+                <Route exact path="/mybookings">
+                    <MyBookings/>
                 </Route>
               </>
               : <>

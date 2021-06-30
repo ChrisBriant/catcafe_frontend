@@ -18,7 +18,7 @@ const BookingDialog = props => {
 
   const bookTable = () => {
     console.log('BOOK HERE');
-    let dateForBooking = `${props.bookingDate.getDate()}/${props.bookingDate.getMonth()}/${
+    let dateForBooking = `${props.bookingDate.getDate()}/${props.bookingDate.getMonth()+1}/${
                             props.bookingDate.getFullYear()} ${props.bookingDate.getHours()}:${props.bookingDate.getMinutes()}`;
     console.log('I AM BOOKING', dateForBooking);
 
@@ -27,7 +27,9 @@ const BookingDialog = props => {
         date: dateForBooking,
         table: props.tableNo
       }
-    )
+    );
+    //Close the dialog after making api call
+    props.cancelDialog();
   }
 
   const formattedDate = moment(props.bookingDate).format('LL');

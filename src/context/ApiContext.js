@@ -12,14 +12,18 @@ const defaultState = {
   displayDay: [],
   displayTables: {},
   dayView: false,
-  tableView: false
+  tableView: false,
+  bookingMade: false,
+  errorState: false,
+  errorMessage: '',
+  myBookings:[]
 };
 
 const apiReducer = (state,action) => {
 
   switch(action.type) {
     case 'add_error':
-      return {...state,errorMessage:action.payload};
+      return {...state,errorMessage:action.payload,errorState:true};
     case 'getCats':
       return {...state,cats:action.payload};
     case 'setMonth':
@@ -38,7 +42,13 @@ const apiReducer = (state,action) => {
       console.log('SET TABLES', displayTables);
       return {...state,tables:action.payload,tableView:true,displayTables:displayTables};
     case 'setBooking':
-      return {...state,tableView:false,dayView:false};
+      return {...state,tableView:false,dayView:false,bookingMade:true};
+    case 'clearBooking':
+      return {...state,bookingMade:false};
+    case 'clearError':
+      return {...state,errorState:false,errorMessage:''};
+    case 'setMyBookings':
+      return {...state,myBookings:action.payload};
     default:
       return defaultState;
   }
@@ -96,9 +106,35 @@ const makeBooking = (dispatch) => async (bookingData) => {
   }
 }
 
+//Clear booking - reset the state variable to clear the dialog
+const clearBooking = (dispatch) => () => {
+    dispatch({type:'clearBooking', payload: null});
+}
+
+//Clear error - clear the error state variable
+const clearError = (dispatch) => () => {
+    dispatch({type:'clearError', payload: null});
+}
+
+
+const getMyBookings = (dispatch) => async () => {
+  try {
+    const response = await catApiAuth.post('/api/mybookings/')
+                      .then(res => {
+                        console.log("success",res.data);
+                        dispatch({type:'setMyBookings', payload:res.data});
+                      });
+  } catch (err) {
+    console.log(err, err.response);
+    dispatch({type:'add_error', payload: 'An issue occured retrieving your bookings.'});
+  }
+}
+
+
 
 export const {Provider, Context} = createDataContext (
   apiReducer,
-  { getCats,getBookings,setDay,setTables,makeBooking},
+  { getCats,getBookings,setDay,setTables,makeBooking,clearBooking,
+    clearError,getMyBookings},
   {...defaultState}
 );
