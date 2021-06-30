@@ -16,7 +16,10 @@ const defaultState = {
   bookingMade: false,
   errorState: false,
   errorMessage: '',
-  myBookings:[]
+  myBookings:[],
+  futureBookings:[],
+  pastBookings:[],
+  deleteSuccess: false
 };
 
 const apiReducer = (state,action) => {
@@ -47,8 +50,25 @@ const apiReducer = (state,action) => {
       return {...state,bookingMade:false};
     case 'clearError':
       return {...state,errorState:false,errorMessage:''};
+    case 'clearError':
+      return {...state,deleteSuccess:false};
     case 'setMyBookings':
-      return {...state,myBookings:action.payload};
+      //Partition into two sets of bookings, future and past
+      let futureBookings = [];
+      let pastBookings = [];
+
+      for(let i=0;i<action.payload.length;i++) {
+        const dtNow = new Date();
+        const dtChk = new Date(action.payload[i].date_str);
+        if(dtChk > dtNow) {
+          futureBookings.push(action.payload[i]);
+        } else {
+          pastBookings.push(action.payload[i]);
+        }
+      }
+      return {...state,myBookings:action.payload,futureBookings,pastBookings};
+    case 'afterDelete':
+      return {...state,deleteSuccess:true};
     default:
       return defaultState;
   }
@@ -117,6 +137,13 @@ const clearError = (dispatch) => () => {
 }
 
 
+//Clear delete success - clear the deletion success status
+const clearDeleteSuccess = (dispatch) => () => {
+    dispatch({type:'clearDeleteSuccess', payload: null});
+}
+
+
+
 const getMyBookings = (dispatch) => async () => {
   try {
     const response = await catApiAuth.post('/api/mybookings/')
@@ -131,10 +158,28 @@ const getMyBookings = (dispatch) => async () => {
 }
 
 
+const deleteBooking = (dispatch) => async (data) => {
+  try {
+    console.log('data',data);
+    const response = await catApiAuth.delete('/api/deletebooking/', {data:data})
+                      .then(res => {
+                        console.log("success",res.data);
+                        dispatch({type:'afterDelete', payload:res.data});
+                        getMyBookings();
+                      });
+  } catch (err) {
+    console.log(err, err.response);
+    dispatch({type:'add_error', payload: 'An issue occured retrieving your bookings.'});
+  }
+}
+
+
+
+
 
 export const {Provider, Context} = createDataContext (
   apiReducer,
   { getCats,getBookings,setDay,setTables,makeBooking,clearBooking,
-    clearError,getMyBookings},
+    clearError,clearDeleteSuccess,getMyBookings,deleteBooking},
   {...defaultState}
 );
