@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {withRouter} from 'react-router';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Container from 'react-bootstrap/Container';
@@ -16,9 +17,8 @@ const MessageDialog = props => {
   }
 
   const goToBookings = () => {
-    console.log('VIEW MY BOOKINGS');
+    props.history.push('/mybookings');
   }
-
 
   return (
         <Modal
@@ -41,9 +41,9 @@ const MessageDialog = props => {
           <Modal.Footer>
             <>
               {
-                props.goToBookings
+                props.extraButton
                 ? <Button onClick={goToBookings}>
-                    View Bookings
+                    {props.buttonText}
                 </Button>
                 : null
               }
@@ -56,4 +56,4 @@ const MessageDialog = props => {
   );
 }
 
-export default MessageDialog;
+export default withRouter(MessageDialog);

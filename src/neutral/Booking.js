@@ -1,4 +1,5 @@
 import {useState, useContext} from 'react';
+import {withRouter} from 'react-router';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -15,17 +16,12 @@ import {Context as ApiContext} from '../context/ApiContext';
 
 
 
-const Booking = () => {
+const Booking = props => {
   const {state:{authed}} = useContext(Context);
   const {clearBooking,state:{dayView,tableView,bookingMade}} = useContext(ApiContext);
   //const [showDiag,setShowDiag] = useState(false);
 
-  console.log("Hello");
-
-  // const cancelDialog = () => {
-  //   clearBooking();
-  //   setShowDiag(false);
-  // }
+  console.log("Hello",props.history);
 
   return (
       <>
@@ -34,6 +30,8 @@ const Booking = () => {
           cancelDialog={() => clearBooking(false)}
           message="You have successfully made a booking"
           title="Booking Success"
+          extraButton={true}
+          buttonText="View My Bookings"
         />
         <p>Some text</p>
         {
@@ -59,4 +57,4 @@ const Booking = () => {
   );
 }
 
-export default Booking;
+export default withRouter(Booking);

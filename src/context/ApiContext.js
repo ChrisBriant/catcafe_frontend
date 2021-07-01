@@ -145,16 +145,35 @@ const clearDeleteSuccess = (dispatch) => () => {
 
 
 const getMyBookings = (dispatch) => async () => {
+  let success = false;
+  let futureBookings = [];
+  let pastBookings = [];
+  let myBookings = [];
+
   try {
     const response = await catApiAuth.post('/api/mybookings/')
                       .then(res => {
                         console.log("success",res.data);
-                        dispatch({type:'setMyBookings', payload:res.data});
+
+                        myBookings = res.data;
+
+                        for(let i=0;i<res.data.length;i++) {
+                          const dtNow = new Date();
+                          const dtChk = new Date(res.data[i].date_str);
+                          if(dtChk > dtNow) {
+                            futureBookings.push(res.data[i]);
+                          } else {
+                            pastBookings.push(res.data[i]);
+                          }
+                        }
+                        //dispatch({type:'setMyBookings', payload:res.data});
+                        success = true;
                       });
   } catch (err) {
     console.log(err, err.response);
     dispatch({type:'add_error', payload: 'An issue occured retrieving your bookings.'});
   }
+  return {success,myBookings,futureBookings,pastBookings};
 }
 
 
@@ -165,12 +184,12 @@ const deleteBooking = (dispatch) => async (data) => {
                       .then(res => {
                         console.log("success",res.data);
                         dispatch({type:'afterDelete', payload:res.data});
-                        getMyBookings();
                       });
   } catch (err) {
     console.log(err, err.response);
     dispatch({type:'add_error', payload: 'An issue occured retrieving your bookings.'});
   }
+  return true;
 }
 
 

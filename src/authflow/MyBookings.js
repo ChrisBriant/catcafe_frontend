@@ -1,6 +1,6 @@
 import {useState, useContext, useEffect} from 'react';
 import {Context as ApiContext} from '../context/ApiContext';
-import BookingCard from '../components/BookingCard';
+import BookingsMap from '../components/BookingsMap';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
@@ -8,34 +8,66 @@ import Spacer from '../components/Spacer';
 import MessageDialog from '../components/MessageDialog';
 
 const MyBookings = props => {
-  const {getMyBookings,deleteBooking,clearDeleteSuccess,clearError,
-    state:{myBookings,futureBookings,pastBookings,deleteSuccess,
-      errorState}}
+  const {getMyBookings,clearDeleteSuccess,clearError,deleteBooking,
+    // state:{myBookings,futureBookings,pastBookings,deleteSuccess,
+    //   errorState}}
+    state:{deleteSuccess,errorState}}
     = useContext(ApiContext);
-  const [bookings,setBookings] = useState(futureBookings);
+
+  const [myBookings, setMyBookings] = useState([]);
+  const [futureBookings, setFutureBookings] = useState([]);
+  const [pastBookings, setPastBookings] = useState([]);
+  const [loaded,setLoaded] = useState(false);
   const [future,setFuture] = useState(true);
   const [timeWord,setTimeWord] = useState('past');
 
-  useEffect( () => {
-    getMyBookings();
+  useEffect(async () => {
+    console.log('Using Effect');
+    await getMyBookings()
+          .then(res => {
+            console.log('getMyBookings',res);
+            if(res.success) {
+              setMyBookings(res.myBookings);
+              setFutureBookings(res.futureBookings);
+              setPastBookings(res.pastBookings);
+            }
+            setLoaded(true);
+          });
   },[]);
 
   const changeFuturePast = () => {
     if(future) {
-      setBookings(pastBookings);
+      //setBookings(pastBookings);
       setTimeWord('');
       setFuture(false);
     } else {
-      setBookings(futureBookings);
+      //setBookings(futureBookings);
       setTimeWord('past');
       setFuture(true);
     }
   }
 
-  const cancelBooking = (bookingId) => {
+  const cancelBooking = async (bookingId) => {
     console.log('I am cancelling',bookingId);
-    deleteBooking({booking_id:bookingId});
+    await deleteBooking({booking_id:bookingId})
+          .then( async res => {
+              console.log('Get Bookings Now')
+              await getMyBookings()
+                    .then(res => {
+                      console.log('Load Now',myBookings, res);
+                      if(res.success) {
+                        setMyBookings(res.myBookings);
+                        setFutureBookings(res.futureBookings);
+                        setPastBookings(res.pastBookings);
+                      }
+                      setLoaded(true);
+                    })
+          });
+
   }
+
+
+
 
   console.log("MY BOOKINGS", myBookings, pastBookings,futureBookings) //, dtNow,booking.date > dtNow.setDate(dtNow.getDate()-1));
 
@@ -67,70 +99,28 @@ const MyBookings = props => {
       </Row>
       <Spacer height="1rem"/>
       {
-        bookings.length > 0
-        ? <> {
-            bookings.map((booking) => (
-              <Row key={booking.id}>
-                <Col>
-                  {
-                    <>
-                      <BookingCard
-                        booking={booking}
-                        future={future}
-                        cancelBooking={cancelBooking}
-                      />
-                      <Spacer height="1rem"/>
-                    </>
-                  }
-                </Col>
-              </Row>
-
-            ))
-          }
-        </>
-        : <Row>
+        loaded
+        ? <>
           {
             future
-            ? <Col><p>You do not have any bookings, please click <a href="/book">here</a> to book</p></Col>
-            : <Col><p>You do not have any past bookings.</p></Col>
+            ? <BookingsMap
+                future={future}
+                bookings={futureBookings}
+                cancelBooking={cancelBooking}
+              />
+            : <BookingsMap
+                future={future}
+                bookings={pastBookings}
+                cancelBooking={cancelBooking}
+              />
           }
-
-        </Row>
+        </>
+        : <p>Loading...</p>
       }
+      <Spacer height="1rem"/>
     </>
   )
 }
 
 
 export default MyBookings;
-
-/*
-const bookingInFuture = (date) => {
-  const dtNow = new Date();
-  const dtChk = new Date(date);
-  console.log('FUTURE CHECK',dtChk,dtNow,
-   dtChk > dtNow); //.setDate(dtNow.getDate()-1) );
-  return(dtChk > dtNow);
-}
-
-
-<>
-  <h2>My Bookings</h2>
-  <p>Sessions last for 30 minutes.</p>
-  {
-    myBookings.map((booking) => (
-      <Row key={booking.id}>
-        <Col>
-          {
-            bookingInFuture(booking.date_str)
-            ? <BookingCard
-              booking={booking}
-            />
-            : null
-          }
-        </Col>
-      </Row>
-    ))
-  }
-</>
-*/
