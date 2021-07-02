@@ -1,4 +1,5 @@
 import {useState, useContext, useEffect} from 'react';
+import paw from '../assets/paw.svg';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -38,10 +39,10 @@ const Main = () => {
         <div className="main">
           <BrowserRouter>
             <Navbar expand="lg" className="navbar-custom">
-              <Navbar.Brand href="/home">TV Smashup</Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="mr-auto">
+                <Nav className="mr-auto center-nav">
+                  <img className="paw-img" alt="logo" src={paw}/>
                   <Nav.Link href="/home">Home</Nav.Link>
                   <Nav.Link href="/cats">Meet the Cats</Nav.Link>
                   {
@@ -55,6 +56,7 @@ const Main = () => {
                       <Nav.Link href="/register">Register</Nav.Link>
                     </>
                   }
+                  <img className="paw-img" alt="logo" src={paw}/>
                 </Nav>
               </Navbar.Collapse>
             </Navbar>

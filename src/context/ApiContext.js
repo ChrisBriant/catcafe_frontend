@@ -69,6 +69,10 @@ const apiReducer = (state,action) => {
       return {...state,myBookings:action.payload,futureBookings,pastBookings};
     case 'afterDelete':
       return {...state,deleteSuccess:true};
+    case 'slotView':
+      return {...state,dayView:true,tableView:false};
+    case 'calendarView':
+      return {...state,dayView:false,tableView:false};
     default:
       return defaultState;
   }
@@ -192,6 +196,17 @@ const deleteBooking = (dispatch) => async (data) => {
   return true;
 }
 
+const changeView = (dispatch) => (view) => {
+  switch (view) {
+    case 'slots':
+      dispatch({type:'slotView', payload:null});
+      break;
+    case 'calendar':
+      dispatch({type:'calendarView', payload:null});
+      break;
+  }
+
+}
 
 
 
@@ -199,6 +214,6 @@ const deleteBooking = (dispatch) => async (data) => {
 export const {Provider, Context} = createDataContext (
   apiReducer,
   { getCats,getBookings,setDay,setTables,makeBooking,clearBooking,
-    clearError,clearDeleteSuccess,getMyBookings,deleteBooking},
+    clearError,clearDeleteSuccess,getMyBookings,deleteBooking, changeView},
   {...defaultState}
 );

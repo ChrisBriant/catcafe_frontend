@@ -5,6 +5,7 @@
   fff76a - bright yellow
   ffce89 - brown yellow
 */
+@import url('https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&display=swap');
 
 .App {
   text-align: center;
@@ -46,7 +47,7 @@ h1,h2,h4 {
   margin-top: auto;
 }
 
-.search_menu {
+/* .search_menu {
   margin:2px;
   border-radius: 5px;
   background: #e3e3e3;
@@ -65,7 +66,7 @@ h1,h2,h4 {
   margin: 1rem;
   width: 40vh;
   height: 30vh;
-}
+} */
 
 .image-lg {
   width: 50vh;
@@ -88,9 +89,12 @@ h1,h2,h4 {
   text-align: left;
 }
 
+/******************************NAV BAR *********************************/
 .navbar-custom {
   background-color:#796460;
 }
+
+
 
 /* .navlinks-custom > a:: {
 
@@ -154,6 +158,24 @@ section:nth-child(odd) {
 section:nth-child(even) {
     background-color: #f0e0de;
 }
+
+.center-nav {
+  margin: auto;
+}
+
+.center-nav>a {
+  font-family: 'Akaya Kanadaka', cursive;
+  font-size: 120%;
+}
+
+.navbar-collapse.collapse.show > .men-img-cont {
+  width: 20px;
+}
+
+/* .paw-img {
+  display:none;
+} */
+
 
 /**************************HERO IMAGE SECTION******************************/
 
@@ -267,13 +289,11 @@ footer {
 
 }
 
-.cal-skip-btn {
-  height: 100%;
-}
-
-.cal-skip-btn,
-.book-btn {
+/************************Buttons ****************************/
+/*standard button*/
+.std-btn {
   font: inherit;
+  margin: 2px;
   border: 1px solid #8a7d5b;
   background: #ebd7a0;
   padding: 0.5rem 1rem;
@@ -285,11 +305,57 @@ footer {
   text-decoration: none;
 }
 
+.cal-skip-btn {
+  font: inherit;
+  border: 1px solid #8a7d5b;
+  background: #ebd7a0;
+  padding: 0.5rem;
+  color: #5e5b54;
+  font-size: 80%;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.26);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+
+/* .align-left {
+  text-align: left;
+  padding: 0px !important;
+} */
+
+.book-btn {
+  font: inherit;
+  margin: 2px;
+  border: 1px solid #8a7d5b;
+  background: #ebd7a0;
+  padding: 0.5rem;
+  color: #5e5b54;
+  font-size: 80%;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.26);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.std-btn:hover,
+.std-btn:active,
+.cal-skip-btn:hover,
+.cal-skip-btn:active,
 .book-btn:hover,
 .book-btn:active {
   background: #f2dda2;
   border-color: #8a7d5b;
   box-shadow: 1px 1px 8px rgba(77, 51, 51, 0.26);
+}
+
+.cal-btn-img {
+    height:40px;
+    width: 40px;
+}
+
+.btn-container {
+  width:100px;
 }
 
 /**********************Day in Calendar************************************************/
@@ -307,6 +373,7 @@ footer {
   background: #f2dda2;
   border-color: #8a7d5b;
   box-shadow: 1px 1px 8px rgba(77, 51, 51, 0.26);
+  cursor: pointer;
 }
 
 .slot-booked {
@@ -384,5 +451,141 @@ div.fade.in.modal {
     width: 100% !important;
     margin: auto;
   }
+}
 
+
+@media only screen and (max-width: 880px) {
+  .book-btn {
+    font: inherit;
+    margin: 2px;
+    border: 1px solid #8a7d5b;
+    background: #ebd7a0;
+    padding: 0.25rem;
+    color: #5e5b54;
+    font-size: 80%;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.26);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+
+  .active-day {
+    min-height: 60px;
+  }
+
+  .inactive-day {
+    min-height: 60px;
+  }
+
+  .passed-day {
+    min-height: 60px;
+  }
+}
+
+
+@media only screen and (max-width: 530px) {
+  .book-btn {
+    font: inherit;
+    margin: 2px;
+    border: 1px solid #8a7d5b;
+    background: #ebd7a0;
+    padding: 0.12rem;
+    color: #5e5b54;
+    font-size: 70%;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.26);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .day-number {
+    display: block;
+    font-size: 100%;
+  }
+
+  .active-day {
+    min-height: 30px;
+  }
+
+  .inactive-day {
+    min-height: 30px;
+  }
+
+  .passed-day {
+    min-height: 30px;
+  }
+}
+
+
+@media only screen and (max-width: 460px) {
+  .book-btn {
+    font: inherit;
+    margin: 2px;
+    border: 1px solid #8a7d5b;
+    background: #ebd7a0;
+    padding: 0.12rem;
+    color: #5e5b54;
+    font-size: 50%;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.26);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .day-number {
+    display: block;
+    font-size: 80%;
+  }
+
+  .active-day {
+    min-height: 20px;
+  }
+
+  .inactive-day {
+    min-height: 20px;
+  }
+
+  .passed-day {
+    min-height: 20px;
+  }
+}
+
+
+
+@media only screen and (max-width: 410px) {
+
+  .book-btn {
+    font: inherit;
+    margin: 2px;
+    border: 1px solid #8a7d5b;
+    background: #ebd7a0;
+    padding: 0.12rem;
+    color: #5e5b54;
+    font-size: 20%;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.26);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .day-number {
+    display: block;
+    font-size: 60%;
+  }
+
+  .active-day {
+    min-height: 10px;
+    max-width: 10px;
+  }
+
+  .inactive-day {
+    min-height: 10px;
+    max-width: 10px;
+  }
+
+  .passed-day {
+    min-height: 10px;
+    max-width: 10px;
+  }
 }

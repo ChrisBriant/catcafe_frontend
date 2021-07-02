@@ -10,7 +10,8 @@ import FloorPlan from './FloorPlan';
 
 
 const Tables = props => {
-  const {clearError,state:{tables,displayTables,errorState,errorMessage}} = useContext(ApiContext);
+  const {clearError,changeView,
+    state:{tables,displayTables,errorState,errorMessage}} = useContext(ApiContext);
 
   const [bookingDate,setBookingDate] = useState(null);
   const [tableNumber,setTableNumber] = useState(0);
@@ -30,7 +31,7 @@ const Tables = props => {
     setShowBookingDiag(false);
   }
 
-  console.log('ERROR', errorState,errorMessage);
+  console.log('ERROR', tables, displayTables);
 
   return (
     <>
@@ -47,9 +48,17 @@ const Tables = props => {
         cancelDialog={cancelDialog}
       />
       <Row>
-        <Col>
+        <Col md={3}></Col>
+        <Col md={6}><button onClick={() => changeView('slots')} className="std-btn" title="Change">{tables.dateStr} {tables.timeStr.time}</button></Col>
+        <Col md={3}></Col>
+      </Row>
+      <h2>Book a Table</h2>
+      <Row>
+        <Col md={3}></Col>
+        <Col md={6}>
           <FloorPlan tables={displayTables} bookTable={bookTable}/>
         </Col>
+        <Col md={3}></Col>
       </Row>
     </>
   )

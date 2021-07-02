@@ -32,7 +32,7 @@ const BookingCard = props => {
               {
                 props.future
                 ?  <Col>
-                     <Button onClick={() => cancelBooking(table.booking_id)}>Cancel Booking</Button>
+                     <button className="book-btn" onClick={() => cancelBooking(table.booking_id)}>Cancel Booking</button>
                   </Col>
                 : null
               }

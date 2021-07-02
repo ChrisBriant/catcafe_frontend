@@ -3,7 +3,7 @@ import {Context as ApiContext} from '../context/ApiContext';
 import {getMonthName} from '../helpers/general';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
+//import Button from 'react-bootstrap/Button';
 
 const Calendar = props => {
   const d = new Date();
@@ -38,18 +38,24 @@ const Calendar = props => {
   const goToDay = (dateStr) => {
     console.log('GO TO DAY', dateStr);
     setDay(dateStr);
-    
+
   }
 
 
   return (
     <>
-      <h2>{getMonthName(month)}, {year}</h2>
       <Row>
+        <Col md={2}></Col>
         <Col md={1}>
           <button className='cal-skip-btn' onClick={() => changeMonth(-1)}>{'<'}</button>
         </Col>
-        <Col md={10}>
+        <Col md={6}><h2>{getMonthName(month)}, {year}</h2></Col>
+        <Col md={1}><button className='cal-skip-btn' onClick={() =>changeMonth(1)}>{'>'}</button></Col>
+        <Col md={2}></Col>
+      </Row>
+      <Row>
+        <Col md={2}></Col>
+        <Col md={8}>
           {
             displayCalendar.map((week) => (
               <Row key={week[0].date}>
@@ -92,7 +98,7 @@ const Calendar = props => {
             ))
           }
         </Col>
-        <Col md={1}><button className='cal-skip-btn' onClick={() =>changeMonth(1)}>{'>'}</button></Col>
+        <Col md={2}></Col>
       </Row>
     </>
   );

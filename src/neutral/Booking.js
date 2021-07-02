@@ -33,7 +33,7 @@ const Booking = props => {
           extraButton={true}
           buttonText="View My Bookings"
         />
-        <p>Some text</p>
+        <h1>Make a Booking</h1>
         {
           authed
           ? <>
