@@ -58,9 +58,10 @@ const Signin = (props) => {
             <Form.Label>Password</Form.Label>
             <Form.Control type="password" placeholder="Password" onChange={handleChangePass}/>
           </Form.Group>
-          <Button variant="primary" type="submit" >
+          <button className="std-btn" type="submit" >
             Submit
-          </Button>
+          </button>
+          <p>Dont't have an account? Click <a href="#" onClick={() => props.history.push('/register')}>here</a> to register.</p>
           <p>Forgot your password? Click <a href="#" onClick={forgotPassword}>here</a> to reset.</p>
         </Form>
         <p className="error">{errorMessage}</p>

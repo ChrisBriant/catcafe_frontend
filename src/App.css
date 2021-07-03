@@ -6,7 +6,8 @@
   ffce89 - brown yellow
 */
 @import url('https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 .App {
   text-align: center;
   background-color: #faeae8;
@@ -168,7 +169,7 @@ section:nth-child(even) {
   font-size: 120%;
 }
 
-.navbar-collapse.collapse.show > .men-img-cont {
+.paw-img {
   width: 20px;
 }
 
@@ -304,6 +305,29 @@ footer {
   cursor: pointer;
   text-decoration: none;
 }
+
+
+.big-btn {
+  font: inherit;
+  margin: 2px;
+  border: 5px solid #8a7d5b;
+  background: #ebd7a0;
+  padding: 0.5rem 1rem;
+  color: #5e5b54;
+  font-size: 120%;
+  border-radius: 5px;
+  box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.26);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.big-btn:hover,
+.big-btn:active {
+  background: #f2dda2;
+  border-color: #8a7d5b;
+  box-shadow: 5px 5px 18px rgba(77, 51, 51, 0.26);
+}
+
 
 .cal-skip-btn {
   font: inherit;
@@ -442,7 +466,31 @@ div.fade.in.modal {
 .modal-dialog {
   margin: auto;
 }
-*/
+
+/**********************MENU SECTION ***************************************/
+#menu > h1 {
+  font-size: 400%;
+  font-family: 'Satisfy', cursive;
+}
+
+#menu h2 {
+  font-size: 300%;
+  font-family: 'Satisfy', cursive;
+}
+
+#menu h3 {
+  font-family: 'Bebas Neue', cursive;
+}
+
+
+#menu .menuItem {
+  text-align: left;
+}
+
+#menu .menuPrice {
+  text-align: right;
+}
+
 /**********************Media Queries************************************************/
 
 

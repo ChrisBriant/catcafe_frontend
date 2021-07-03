@@ -42,7 +42,7 @@ const Main = () => {
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto center-nav">
-                  <img className="paw-img" alt="logo" src={paw}/>
+                  <div className="men-img-cont"><img className="paw-img" alt="logo" src={paw}/></div>
                   <Nav.Link href="/home">Home</Nav.Link>
                   <Nav.Link href="/cats">Meet the Cats</Nav.Link>
                   {

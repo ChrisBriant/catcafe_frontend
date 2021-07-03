@@ -205,15 +205,31 @@ const changeView = (dispatch) => (view) => {
       dispatch({type:'calendarView', payload:null});
       break;
   }
-
 }
 
+const getMenu = (dispatch) => async () => {
+  let success = false;
+  let data = {};
 
+  try {
+    console.log('data',data);
+    const response = await catApi.get('/api/getmenu')
+                      .then(res => {
+                        console.log("success",res.data);
+                        success = true;
+                        data = res.data;
+                      });
+  } catch (err) {
+    console.log(err, err.response);
+    dispatch({type:'add_error', payload: 'An issue occured retrieving your bookings.'});
+  }
+  return {success,data};
+}
 
 
 export const {Provider, Context} = createDataContext (
   apiReducer,
-  { getCats,getBookings,setDay,setTables,makeBooking,clearBooking,
+  { getCats,getBookings,setDay,setTables,makeBooking,clearBooking,getMenu,
     clearError,clearDeleteSuccess,getMyBookings,deleteBooking, changeView},
   {...defaultState}
 );

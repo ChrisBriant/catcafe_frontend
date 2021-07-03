@@ -96,9 +96,9 @@ const Register = () => {
                   <Form.Control type="password" placeholder="Password" onChange={handleChangePassChk} required />
                 </Form.Group>
 
-                <Button variant="primary" type="submit" >
+                <button className="std-btn" type="submit" >
                   Submit
-                </Button>
+                </button>
               </Form>
               <p className="error">{errorMessage}</p>
             </div>

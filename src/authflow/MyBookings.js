@@ -91,8 +91,8 @@ const MyBookings = props => {
         <Col>
           {
             future
-            ? <button className="book-btn" onClick={changeFuturePast}>Show Past Bookings</button>
-            : <button button className="book-btn" onClick={changeFuturePast}>Show Bookings</button>
+            ? <button className="std-btn" onClick={changeFuturePast}>Show Past Bookings</button>
+            : <button className="std-btn" onClick={changeFuturePast}>Show Bookings</button>
           }
 
         </Col>
