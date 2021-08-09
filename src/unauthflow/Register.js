@@ -3,6 +3,7 @@ import {Context} from '../context/AuthContext';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Spacer from '../components/Spacer';
+import TermsDialog from '../components/TermsDialog';
 import {isValidPassword} from '../helpers/validation';
 
 
@@ -13,6 +14,7 @@ const Register = () => {
   const [passChk,setPassChk] = useState('');
   const [errorMessage,setErrorMessage] = useState('');
   const {register, state:{regSuccess}} = useContext(Context);
+  const [showTandC,setShowTandC] = useState(false);
 
 
   const handleSend = (e) => {
@@ -59,9 +61,18 @@ const Register = () => {
     setPassChk(e.target.value);
   }
 
+  const launchTandC = () => {
+    setShowTandC(true);
+  }
+
+  const cancelDialog = () => {
+    setShowTandC(false);
+  }
+
 
   return (
     <>
+      <TermsDialog show={showTandC} cancelDialog={cancelDialog} />
       {
         !regSuccess
         ?
@@ -96,8 +107,20 @@ const Register = () => {
                   <Form.Control type="password" placeholder="Password" onChange={handleChangePassChk} required />
                 </Form.Group>
 
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                  <Form.Check
+                    type="checkbox"
+                    label={
+                        (<><b>I have read the </b>
+                          <a href="#" onClick={launchTandC}>terms and conditions</a>
+                         </>)}
+                    required
+                  />
+
+                </Form.Group>
+
                 <button className="std-btn" type="submit" >
-                  Submit
+                  Register
                 </button>
               </Form>
               <p className="error">{errorMessage}</p>

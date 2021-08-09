@@ -15,27 +15,39 @@ import Home from '../unauthflow/Home';
 import MyBookings from '../authflow/MyBookings';
 import PasswordReset from '../unauthflow/PasswordReset';
 import ForgotPassword from '../unauthflow/ForgotPassword';
+import TermsDialog from '../components/TermsDialog';
+import CookiesDialog from '../components/CookiesDialog';
 import {Context} from '../context/AuthContext';
 
 const Main = () => {
-    const {isAuthed,signout, state:{authed,isAdmin}} = useContext(Context);
+    const {isAuthed,signout,hasAcceptedCookies, state:{authed,isAdmin,cookiesAccepted}} = useContext(Context);
     const [search,setSearch] = useState('');
-    //const [authed,setAuthed] = useState(false);
+    const [showTandC,setShowTandC] = useState(false);
+
 
     const logOut = (e) => {
       e.preventDefault();
       signout();
-      console.log('Am I authed',authed);
     }
 
     useEffect(() => {
       isAuthed();
-      console.log('Am I an admin?',isAdmin);
+      hasAcceptedCookies();
     },[]);
+
+    const launchTandC = () => {
+      setShowTandC(true);
+    }
+
+    const cancelDialog = () => {
+      setShowTandC(false);
+    }
 
 
     return (
       <>
+        <TermsDialog show={showTandC} cancelDialog={cancelDialog} />
+        <CookiesDialog show={!cookiesAccepted} />
         <div className="main">
           <BrowserRouter>
             <Navbar expand="lg" className="navbar-custom">
@@ -99,7 +111,9 @@ const Main = () => {
 
 
         <footer>
-          <h1>Footer content here</h1>
+          <a href="#" onClick={launchTandC}>Terms and Conditions</a>&nbsp;|
+          <a href="https://github.com/ChrisBriant/catcafe_frontend" target="_blank"> Git Hub</a>&nbsp;|
+          <a href="/contact" target="_blank"> Contact</a>
         </footer>
       </>
     )

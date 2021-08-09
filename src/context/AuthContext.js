@@ -11,7 +11,7 @@ const defaultState = {
   regSuccess: false,
   setForgotSuccess: false,
   changeSuccess: false,
-  //signInSuccess: false
+  cookiesAccepted: true
 };
 
 const authReducer = (state,action) => {
@@ -40,8 +40,12 @@ const authReducer = (state,action) => {
       return {...state, forgotSuccess: action.payload};
     case 'setChangeSuccess':
       return {...state, changeSuccess: action.payload};
-    // case 'setSignInSuccess':
-    //   return {...state, signInSuccess: action.payload};
+    case 'cookiesAccept':
+      if(action.payload) {
+        return {...state, cookiesAccepted: true};
+      } else {
+        return {...state, cookiesAccepted: false};
+      }
     default:
       return defaultState;
   }
@@ -97,7 +101,6 @@ const signin = (dispatch) => async ({email, password}) => {
                         dispatch({type:'setId', payload:decoded.user_id});
                         dispatch({type:'setIsAdmin', payload:decoded.is_admin});
                         console.log("USER IS SIGNED IN", decoded);
-                        //dispatch({type:'setSignInSuccess', payload:true});
                         signInSuccess = true;
                       });
   } catch (err){
@@ -186,10 +189,29 @@ const resetForgotPassword  = dispatch => async (email) => {
   dispatch({type:'setForgotSuccess', payload:false});
 }
 
+const hasAcceptedCookies = (dispatch) => () => {
+  const accepted = localStorage.getItem('catcafeCookiesAccept');
+    dispatch({
+      type: 'cookiesAccept',
+      payload: accepted
+    });
+}
+
+
+const iAcceptCookies = (dispatch) => () => {
+  console.log('DO I ACCEPT COOKIES?');
+  localStorage.setItem('catcafeCookiesAccept','accepted');
+    dispatch({
+      type: 'cookiesAccept',
+      payload: true
+    });
+}
+
 export const {Provider, Context} = createDataContext (
   authReducer,
   { signin, signout, register, clearErrorMessage, tryLocalSignin, isAuthed,
-    forgotPassword, resetForgotPassword, changePassword
+    forgotPassword, resetForgotPassword, changePassword, hasAcceptedCookies,
+    iAcceptCookies
   },
   {...defaultState}
 );

@@ -212,7 +212,7 @@ header {
 /**********************footer********************************************/
 footer {
   min-height:10vh;
-  background-color: #ffce89;
+  background-color: #ebd7a0;
 }
 
 /***********************modals******************************************/
@@ -227,6 +227,10 @@ footer {
   width: 100%;
 }
 
+.center-content {
+  margin:auto;
+}
+
 /**********************cards************************************************/
 
 .card-header{
@@ -239,16 +243,6 @@ footer {
   margin: auto;
 }
 
-/*
-.card-img-top {
-  max-height: 340px !important;
-}*/
-
-/*
-.cat-container {
-  display: block;
-  margin: auto;
-}*/
 
 /**********************calendar************************************************/
 
@@ -273,7 +267,6 @@ footer {
       #b8b8b8 20px
   );
   border: 1px solid #b8b8b8;
-  /*background-color: #b8b8b8;*/
   min-height: 80px;
 }
 
@@ -342,11 +335,6 @@ footer {
   text-decoration: none;
 }
 
-
-/* .align-left {
-  text-align: left;
-  padding: 0px !important;
-} */
 
 .book-btn {
   font: inherit;
