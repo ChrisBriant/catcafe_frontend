@@ -8,6 +8,7 @@ import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import { Route, BrowserRouter } from 'react-router-dom';
 import Booking from './Booking';
+import Contact from './Contact';
 import MeetTheCats from '../unauthflow/MeetTheCats';
 import Signin from '../unauthflow/Signin';
 import Register from '../unauthflow/Register';
@@ -103,6 +104,9 @@ const Main = () => {
                 </Route>
                 <Route exact path="/passwordreset/:hash">
                   <PasswordReset/>
+                </Route>
+                <Route exact path="/contact">
+                  <Contact/>
                 </Route>
               </>
             }
