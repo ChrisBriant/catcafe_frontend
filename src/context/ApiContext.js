@@ -19,7 +19,8 @@ const defaultState = {
   myBookings:[],
   futureBookings:[],
   pastBookings:[],
-  deleteSuccess: false
+  deleteSuccess: false,
+  contactSuccess: false
 };
 
 const apiReducer = (state,action) => {
@@ -73,6 +74,8 @@ const apiReducer = (state,action) => {
       return {...state,dayView:true,tableView:false};
     case 'calendarView':
       return {...state,dayView:false,tableView:false};
+    case 'contactSuccess':
+      return {...state,contactSuccess:action.payload};
     default:
       return defaultState;
   }
@@ -227,9 +230,31 @@ const getMenu = (dispatch) => async () => {
 }
 
 
+const sendContactMessage = (dispatch) => async (payload) => {
+  let success = false;
+  console.log('PAYLOAD',payload);
+  try {
+    const response = await catApi.post('/api/contact',payload)
+                      .then(res => {
+                        if(res.data.success) {
+                          dispatch({type:'contactSuccess', payload: true});
+                        }  else {
+                          dispatch({type:'add_error', payload: 'An issue occured sending this message.'});
+                        }
+                        success = true;
+                      });
+  } catch (err) {
+    console.log(err, err.response);
+    dispatch({type:'add_error', payload: 'An issue occured sending this message.'});
+  }
+  return {success};
+}
+
+
 export const {Provider, Context} = createDataContext (
   apiReducer,
   { getCats,getBookings,setDay,setTables,makeBooking,clearBooking,getMenu,
-    clearError,clearDeleteSuccess,getMyBookings,deleteBooking, changeView},
+    clearError,clearDeleteSuccess,getMyBookings,deleteBooking, changeView,
+    sendContactMessage},
   {...defaultState}
 );

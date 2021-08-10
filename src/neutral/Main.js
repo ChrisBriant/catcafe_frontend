@@ -82,6 +82,9 @@ const Main = () => {
             <Route exact path="/cats">
                 <MeetTheCats />
             </Route>
+            <Route exact path="/contact">
+              <Contact/>
+            </Route>
             {
               authed
               ? <>
@@ -104,9 +107,6 @@ const Main = () => {
                 </Route>
                 <Route exact path="/passwordreset/:hash">
                   <PasswordReset/>
-                </Route>
-                <Route exact path="/contact">
-                  <Contact/>
                 </Route>
               </>
             }
