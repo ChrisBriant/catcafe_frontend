@@ -20,7 +20,7 @@ import TermsDialog from '../components/TermsDialog';
 import CookiesDialog from '../components/CookiesDialog';
 import {Context} from '../context/AuthContext';
 
-const Main = () => {
+const Main= () => {
     const {isAuthed,signout,hasAcceptedCookies, state:{authed,isAdmin,cookiesAccepted}} = useContext(Context);
     const [search,setSearch] = useState('');
     const [showTandC,setShowTandC] = useState(false);
@@ -63,6 +63,7 @@ const Main = () => {
                     ? <>
                       <Nav.Link href="/book">Book Now</Nav.Link>
                       <Nav.Link href="/mybookings">My Bookings</Nav.Link>
+                      <Nav.Link href="/home" onClick={logOut}>Sign Out</Nav.Link>
                     </>
                     : <>
                       <Nav.Link href="/signin">Signin</Nav.Link>

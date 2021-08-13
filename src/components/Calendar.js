@@ -13,6 +13,7 @@ const Calendar = props => {
   //const [displayCalendar, setDisplayCalendar] = useState([]);
 
   useEffect(() => {
+    console.log("The month is ", month);
     getBookings(year,month);
     //console.log('month name',getMonthName(month));
   },[]);
@@ -22,7 +23,7 @@ const Calendar = props => {
   const changeMonth = (moveVal) => {
     let newMonth = month + moveVal;
     let newYear = year;
-    if(newMonth == -1) {
+    if(newMonth == 0) {
       newMonth = 12;
       newYear--;
     }
@@ -31,6 +32,7 @@ const Calendar = props => {
       newYear++;
     }
     getBookings(newYear,newMonth);
+    console.log('GET BOOKINGS', newYear, newMonth);
     setMonth(newMonth);
     setYear(newYear);
   }

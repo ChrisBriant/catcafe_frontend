@@ -1,10 +1,3 @@
-/*
-  palette
-  61b15a - bright green
-  adce74 - light bright green
-  fff76a - bright yellow
-  ffce89 - brown yellow
-*/
 @import url('https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
@@ -47,27 +40,6 @@ h1,h2,h4 {
 	margin: auto;
   margin-top: auto;
 }
-
-/* .search_menu {
-  margin:2px;
-  border-radius: 5px;
-  background: #e3e3e3;
-  padding:2px;
-}
-
-.search-image {
-  max-width : 200px;
-  max-height : 100px;
-  width : auto;
-  height : auto;
-
-}
-
-.show-select-img {
-  margin: 1rem;
-  width: 40vh;
-  height: 30vh;
-} */
 
 .image-lg {
   width: 50vh;

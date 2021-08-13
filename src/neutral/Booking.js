@@ -53,6 +53,7 @@ const Booking = props => {
             <Calendar/>
           </>
         }
+        <Spacer height="1rem"/>
       </>
   );
 }

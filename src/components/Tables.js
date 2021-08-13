@@ -19,12 +19,11 @@ const Tables = props => {
 
   const bookTable = (tableNo) => {
     if(!displayTables[tableNo].booked) {
-      let bookDate = new Date(`${tables.dateStr} ${tables.timeStr}`);
+      let bookDate = new Date(`${tables.dateStr} ${tables.timeStr.time}`);
       setBookingDate(bookDate);
       setTableNumber(tableNo);
       setShowBookingDiag(true);
     }
-    console.log('want to book',displayTables[tableNo].booked);
   }
 
   const cancelDialog = () => {
