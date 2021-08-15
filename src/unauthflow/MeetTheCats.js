@@ -11,8 +11,6 @@ const MeetTheCats = () => {
   },[]);
 
 
-  console.log('CATS',cats);
-
   return (
     <>
       <h1>Meet the Cats</h1>

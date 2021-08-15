@@ -16,18 +16,13 @@ const Home = props => {
   const [menuData,setMenuData] = useState([]);
 
   useEffect(async () => {
-    console.log('Using Effect',getMenu);
     await getMenu()
           .then(res => {
-            console.log('getMyBookings',res);
             if(res.success) {
               setMenuData(res.data);
             }
           });
   },[]);
-
-  console.log('PROPS', menuData);
-
   const iframe = '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d859.0391274071358!2d-1.8945556300330004!3d52.4840319870263!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4870bc855c50db93%3A0xced36d3f85cb1eec!2s206%20Corporation%20St%2C%20Birmingham%20B4%206QD!5e0!3m2!1sen!2suk!4v1623907652718!5m2!1sen!2suk" style="border:0;" allowfullscreen="" loading="lazy"></iframe>';
 
   return (

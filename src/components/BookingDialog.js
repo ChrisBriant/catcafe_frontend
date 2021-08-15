@@ -17,10 +17,8 @@ const BookingDialog = props => {
   }
 
   const bookTable = () => {
-    console.log('BOOK HERE');
     let dateForBooking = `${props.bookingDate.getDate()}/${props.bookingDate.getMonth()+1}/${
                             props.bookingDate.getFullYear()} ${props.bookingDate.getHours()}:${props.bookingDate.getMinutes()}`;
-    console.log('I AM BOOKING', dateForBooking);
 
     makeBooking(
       {
@@ -33,9 +31,6 @@ const BookingDialog = props => {
   }
 
   const formattedDate = moment(props.bookingDate).format('LL');
-  console.log('MAKE BOOKING ON',formattedDate);
-
-
 
   return (
         <Modal

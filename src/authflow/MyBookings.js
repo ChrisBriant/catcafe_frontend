@@ -9,9 +9,7 @@ import MessageDialog from '../components/MessageDialog';
 
 const MyBookings = props => {
   const {getMyBookings,clearDeleteSuccess,clearError,deleteBooking,
-    // state:{myBookings,futureBookings,pastBookings,deleteSuccess,
-    //   errorState}}
-    state:{deleteSuccess,errorState}}
+    state:{deleteSuccess,errorState,errorMessage}}
     = useContext(ApiContext);
 
   const [myBookings, setMyBookings] = useState([]);
@@ -22,10 +20,8 @@ const MyBookings = props => {
   const [timeWord,setTimeWord] = useState('past');
 
   useEffect(async () => {
-    console.log('Using Effect');
     await getMyBookings()
           .then(res => {
-            console.log('getMyBookings',res);
             if(res.success) {
               setMyBookings(res.myBookings);
               setFutureBookings(res.futureBookings);
@@ -37,24 +33,19 @@ const MyBookings = props => {
 
   const changeFuturePast = () => {
     if(future) {
-      //setBookings(pastBookings);
       setTimeWord('');
       setFuture(false);
     } else {
-      //setBookings(futureBookings);
       setTimeWord('past');
       setFuture(true);
     }
   }
 
   const cancelBooking = async (bookingId) => {
-    console.log('I am cancelling',bookingId);
     await deleteBooking({booking_id:bookingId})
           .then( async res => {
-              console.log('Get Bookings Now')
               await getMyBookings()
                     .then(res => {
-                      console.log('Load Now',myBookings, res);
                       if(res.success) {
                         setMyBookings(res.myBookings);
                         setFutureBookings(res.futureBookings);
@@ -65,11 +56,6 @@ const MyBookings = props => {
           });
 
   }
-
-
-
-
-  console.log("MY BOOKINGS", myBookings, pastBookings,futureBookings) //, dtNow,booking.date > dtNow.setDate(dtNow.getDate()-1));
 
   return (
     <>
@@ -82,8 +68,8 @@ const MyBookings = props => {
       <MessageDialog
         show={errorState}
         cancelDialog={clearError}
-        message="Error Deleting"
-        title="An error occured deleting the booking."
+        message={errorMessage}
+        title="Error"
       />
       <h2>My Bookings</h2>
       <p>Sessions last for 30 minutes.</p>

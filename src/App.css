@@ -67,19 +67,6 @@ h1,h2,h4 {
   background-color:#796460;
 }
 
-
-
-/* .navlinks-custom > a:: {
-
-}
-
-
-
-.btn-outline-success {
-    color:  #fff76a !important;
-    border-color: #fff76a !important;
-} */
-
 .navbar-light .navbar-nav .nav-link {
     color: #fff !important;
 }
@@ -145,10 +132,6 @@ section:nth-child(even) {
   width: 20px;
 }
 
-/* .paw-img {
-  display:none;
-} */
-
 
 /**************************HERO IMAGE SECTION******************************/
 
@@ -171,9 +154,6 @@ header {
 
 /**********************SECTIONS*********************************************/
 
-/*#about {
-  background-color: #fff;
-}*/
 
 /**********************vs image********************************************/
 .vsimg-small {
@@ -399,6 +379,7 @@ footer {
 }
 
 .svg-table:hover {
+  cursor: pointer;
   fill: #f2dda2;
 }
 

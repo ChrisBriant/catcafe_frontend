@@ -3,22 +3,16 @@ import {Context as ApiContext} from '../context/ApiContext';
 import {getMonthName} from '../helpers/general';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-//import Button from 'react-bootstrap/Button';
 
 const Calendar = props => {
   const d = new Date();
   const {getBookings,setDay,state:{calMonth,displayCalendar}} = useContext(ApiContext);
   const [month,setMonth] = useState(d.getUTCMonth()+1);
   const [year,setYear] = useState(d.getUTCFullYear());
-  //const [displayCalendar, setDisplayCalendar] = useState([]);
 
   useEffect(() => {
-    console.log("The month is ", month);
     getBookings(year,month);
-    //console.log('month name',getMonthName(month));
   },[]);
-
-  //console.log('hello',displayCalendar);
 
   const changeMonth = (moveVal) => {
     let newMonth = month + moveVal;
@@ -32,15 +26,12 @@ const Calendar = props => {
       newYear++;
     }
     getBookings(newYear,newMonth);
-    console.log('GET BOOKINGS', newYear, newMonth);
     setMonth(newMonth);
     setYear(newYear);
   }
 
   const goToDay = (dateStr) => {
-    console.log('GO TO DAY', dateStr);
     setDay(dateStr);
-
   }
 
 

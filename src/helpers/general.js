@@ -1,5 +1,3 @@
-import moment from 'moment';
-
 function splitArray(array,chunkSize ) {
     let arrayOfArrays = [];
 
@@ -47,8 +45,6 @@ function getLastOfMonth(year,month) {
   }
 }
 
-
-//https://stackoverflow.com/questions/23593052/format-javascript-date-as-yyyy-mm-dd
 function formatDate(date) {
     var d = new Date(date),
         month = '' + (d.getMonth() + 1),
@@ -102,29 +98,12 @@ End part
 export const transformMonthData = (year,month,slots) => {
   let monthData = []
 
-  // const november = new Date('2021-11-1');
-  // const novemberFormat = moment(november).format('YYYY-MM-DD');
-  // const novString = `${november.getFullYear()}-${november.getMonth()+1}-${november.getDate()}`;
-  // const novemberFormat2 = moment(`${november.getFullYear()}-${november.getMonth()}-${november.getDate()}`).format('YYYY-MM-DD');
-  // console.log('NOVEMBER',november,novemberFormat,novemberFormat2, novString);
-
   const firstOfMonthStr = `${year}-${month}-1`;
   const firstOfMonth = new Date(firstOfMonthStr);
-  //const firstOfMonth = new Date(year,month-1,1);
   const lastOfMonthStr = `${year}-${month}-${getLastOfMonth(year,month)}`;
   const lastOfMonth = new Date(lastOfMonthStr);
-  console.log('MONTH STRINGS',firstOfMonthStr,lastOfMonthStr, year, month);
-  console.log('ACTUAL DATES',firstOfMonth,lastOfMonth);
-  console.log('FIRST OF MONTH',`${moment(firstOfMonth).format('YYYY-MM-DD')}`,`${formatDate(lastOfMonth)}`, year, month);
-  //console.log('First is on',firstOfMonth.getDay(),firstOfMonth);
-  //console.log('Last is on',lastOfMonth);
+
   //Adjust for calendar so that Sunday is day 7 and Monday day 0
-  // let startDay;
-  // if(firstOfMonth.getDay() === 0) {
-  //   startDay = 7;
-  // } else {
-  //   startDay = firstOfMonth.getDay() -1;
-  // }
 
   if(firstOfMonth.getDay() !== 1) {
     //Set the blank days
@@ -136,44 +115,23 @@ export const transformMonthData = (year,month,slots) => {
     }
     let beforeMonth = new Date(beforeMonthStr);
 
-    //let beforeMonth = new Date(firstOfMonth.getTime());
-    //beforeMonth.setDate(beforeMonth.getDate() - startDay);
     //Wind back
     while(beforeMonth.getDay() !== 1) {
       beforeMonth.setDate(beforeMonth.getDate() - 1);
     }
 
-    console.log('B4 After',beforeMonth.getMonth(), firstOfMonth.getMonth() );
-
     while(beforeMonth.getMonth() !== firstOfMonth.getMonth()) {
-      console.log('BEFORE MONTH',`${formatDate(beforeMonth)}`);
       monthData.push({
         active:false,
         gone: true,
         className: 'inactive-day',
         day: beforeMonth.getDate(),
         date: new Date(beforeMonth.getTime()),
-        //dateStr: `${beforeMonth.getFullYear()}-${beforeMonth.getMonth()}-${beforeMonth.getDate()}`
         dateStr: formatDate(beforeMonth)
       });
       beforeMonth.setDate(beforeMonth.getDate() + 1);
     }
   }
-  // for(let i=0;i<startDay;i++) {
-  //   //Go backwards
-  //   if(beforeMonth.getDay() >  0) {
-  //     monthData.push({
-  //       active:false,
-  //       gone: true,
-  //       className: 'inactive-day',
-  //       day: beforeMonth.getDate(),
-  //       date: new Date(beforeMonth.getTime()),
-  //       //dateStr: `${beforeMonth.getFullYear()}-${beforeMonth.getMonth()}-${beforeMonth.getDate()}`
-  //       dateStr: formatDate(beforeMonth)
-  //     });
-  //   }
-  //   beforeMonth = new Date(beforeMonth.setDate(beforeMonth.getDate() + 1));
-  // }
 
   //Sandwich the actual month
   //Process the bulk of the calendar month
@@ -194,7 +152,6 @@ export const transformMonthData = (year,month,slots) => {
       day: firstOfMonth.getDate(),
       date: new Date(firstOfMonth.getTime()),
       available: slots[`${formatDate(firstOfMonth)}`].available,
-      //dateStr: `${beforeMonth.getFullYear()}-${beforeMonth.getMonth()}-${beforeMonth.getDate()}`
       dateStr: formatDate(firstOfMonth)
     });
     firstOfMonth.setDate(firstOfMonth.getDate() + 1);
@@ -226,7 +183,6 @@ export function transformDayData(day) {
     2: [],
     3: []
   };
-  console.log('TIMES',day.times);
   let timeKeys = Object.keys(day.times);
   let slotPartition = 1;
   for(let i=0;i<timeKeys.length;i++) {
@@ -249,7 +205,6 @@ export function transformDayData(day) {
       className = 'slot-unavailable';
       booked =  true;
     }
-    console.log('TIME KEY',timeKeys[i].booked )
     let slotObj = {
       time: timeKeys[i],
       booked : booked,
@@ -257,7 +212,6 @@ export function transformDayData(day) {
     }
     daySlots[slotPartition].push(slotObj);
   }
-  console.log('SLOT OBJ',daySlots);
   return daySlots;
 }
 

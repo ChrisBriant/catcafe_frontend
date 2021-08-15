@@ -1,6 +1,5 @@
 import {useContext, useState, useEffect} from 'react';
 import {Context as ApiContext} from '../context/ApiContext';
-//import {transformDayData} from '../helpers/general';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import CalendarButton from '../components/CalendarButton';
@@ -10,18 +9,9 @@ const Day = props => {
   const {setTables,changeView,state:{day,displayDay}} = useContext(ApiContext);
   const [daySlots,setDaySlots] = useState([]);
 
-  useEffect(() => {
-
-    //setDaySlots(transformDayData(day));
-  },[]);
-
-  console.log('DAY',displayDay, day);
-
 
   const bookSlot = (slot) => {
-    console.log("BOOK SLOT", slot);
     if(!slot.booked) {
-      console.log('SLOT IS', day.times[slot.time]);
       setTables({dateStr:day.dateStr,timeStr:slot,tables:day.times[slot.time]});
     }
   }

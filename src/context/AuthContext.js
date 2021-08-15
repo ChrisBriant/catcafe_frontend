@@ -27,10 +27,8 @@ const authReducer = (state,action) => {
     case 'clear_error_message':
       return {...state,errorMessage:''};
     case 'setId':
-      console.log('Setting ID', action.payload);
       return {...state,userId:action.payload};
     case 'setIsAdmin':
-      console.log('Setting Admin', action.payload);
       return {...state,isAdmin:action.payload};
     case 'signout':
       return {token: null, errorMessage: ''};
@@ -66,18 +64,15 @@ const tryLocalSignin = dispatch => async () => {
 
 const register = dispatch => async ({username,email,password,passchk}) => {
     //Make api request to sign up with that email and Password
-
     try {
       const response = await catApi.post('/api/register/',
                                           {username,email,password,passchk}
                         )
                         .then(res => {
-                          console.log("success",res.data);
                           //SAVE TO STORAGE
                           dispatch({type:'regSuccess', payload:null});
                         });
     } catch (err) {
-      console.log(err, err.response);
       dispatch({type:'add_error', payload: 'Something went wrong with sign up'});
     }
   };
@@ -86,25 +81,20 @@ const register = dispatch => async ({username,email,password,passchk}) => {
 const signin = (dispatch) => async ({email, password}) => {
   let signInSuccess;
   try {
-    console.log(JSON.stringify({email,password}));
     const response = await catApi.post('/api/authenticate/',
                                         {email,password}
                       )
                       .then(res => {
-                        console.log("success",res.data.access);
                         //SAVE TO STORAGE
                         localStorage.setItem("access_token", res.data.access);
-                        console.log("access", res.data.access);
                         dispatch({type:'signin', payload:res.data.access});
                         const decoded = decode(res.data.access);
                         dispatch({type:'setAuthed', payload:true});
                         dispatch({type:'setId', payload:decoded.user_id});
                         dispatch({type:'setIsAdmin', payload:decoded.is_admin});
-                        console.log("USER IS SIGNED IN", decoded);
                         signInSuccess = true;
                       });
   } catch (err){
-    console.log(err);
     dispatch({
       type: 'add_error',
       payload: 'Something went wrong with sign in'
@@ -118,9 +108,7 @@ const isAuthed = (dispatch) => () => {
   const accessToken = localStorage.getItem('access_token');
   if(accessToken) {
     const decoded = decode(accessToken);
-    console.log(decoded);
     if(decoded.exp < Date.now() / 1000) {
-      console.log('Out of date');
       dispatch({type:'setUnauthed', payload:null});
       dispatch({type:'setId', payload:null});
       return false;
@@ -129,10 +117,8 @@ const isAuthed = (dispatch) => () => {
       dispatch({type:'setId', payload:decoded.user_id});
       return true;
     }
-    //// TODO: Actual checking of token will need to go here
 
   } else {
-    console.log('Here')
     dispatch({type:'setUnauthed', payload:null});
     dispatch({type:'setId', payload:null});
     return false;
@@ -153,11 +139,9 @@ const forgotPassword = dispatch => async (data) => {
                                         data
                       )
                       .then(res => {
-                        console.log("success",res.data.access);
                         dispatch({type:'setChangeSuccess', payload:true});
                       });
     } catch (err) {
-      console.log(err);
       dispatch({
         type: 'add_error',
         payload: 'Sorry something went wrong'
@@ -173,11 +157,9 @@ const changePassword = dispatch => async (data) => {
                                         data
                       )
                       .then(res => {
-                        console.log("success",res.data);
                         dispatch({type:'setForgotSuccess', payload:true});
                       });
     } catch (err) {
-      console.log(err);
       dispatch({
         type: 'add_error',
         payload: 'Password reset failed'
@@ -199,7 +181,6 @@ const hasAcceptedCookies = (dispatch) => () => {
 
 
 const iAcceptCookies = (dispatch) => () => {
-  console.log('DO I ACCEPT COOKIES?');
   localStorage.setItem('catcafeCookiesAccept','accepted');
     dispatch({
       type: 'cookiesAccept',

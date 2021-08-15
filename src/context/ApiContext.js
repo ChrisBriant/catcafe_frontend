@@ -43,7 +43,6 @@ const apiReducer = (state,action) => {
       return {...state,day:day,dayView:true,displayDay:transformDayData(day)};
     case 'setTables':
       let displayTables = transformTableData(action.payload.tables.tables);
-      console.log('SET TABLES', displayTables);
       return {...state,tables:action.payload,tableView:true,displayTables:displayTables};
     case 'setBooking':
       return {...state,tableView:false,dayView:false,bookingMade:true};
@@ -81,16 +80,22 @@ const apiReducer = (state,action) => {
   }
 };
 
+const getConfig = () => {
+  return {
+    headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem("access_token")}`
+      }
+  }
+}
 
 const getCats = (dispatch) => async () => {
   try {
     const response = await catApi.get('/api/cats/')
                       .then(res => {
-                        console.log("success",res.data);
                         dispatch({type:'getCats', payload:res.data});
                       });
     } catch (err) {
-      console.log(err, err.response);
       dispatch({type:'add_error', payload: 'An issue occured retrieving data'});
     }
 }
@@ -99,20 +104,17 @@ const getBookings = (dispatch) => async (year,month) => {
     try {
       const response = await catApi.get(`/api/getslotsformonth?year=${year}&month=${month}`)
                         .then(res => {
-                          console.log("success",res.data);
                           dispatch({type:'setMonth', payload:res.data});
                           dispatch({type:'setDisplayCalendar',
                                     payload:transformMonthData(year,month,res.data)});
                         });
     } catch (err) {
-      console.log(err, err.response);
       dispatch({type:'add_error', payload: 'An issue occured retrieving data'});
     }
 
 }
 
 const setDay = (dispatch) => (dateStr) => {
-  console.log('DAY');
   dispatch({type:'setDay', payload: dateStr});
 }
 
@@ -121,14 +123,13 @@ const setTables = (dispatch) => (tableData) => {
 }
 
 const makeBooking = (dispatch) => async (bookingData) => {
+  let config = getConfig();
   try {
-    const response = await catApiAuth.post('/api/makebooking/', bookingData)
+    const response = await catApiAuth.post('/api/makebooking/', bookingData, config)
                       .then(res => {
-                        console.log("success",res.data);
                         dispatch({type:'setBooking', payload:res.data});
                       });
   } catch (err) {
-    console.log(err, err.response);
     dispatch({type:'add_error', payload: 'An issue occured making the booking.'});
   }
 }
@@ -158,10 +159,9 @@ const getMyBookings = (dispatch) => async () => {
   let myBookings = [];
 
   try {
-    const response = await catApiAuth.post('/api/mybookings/')
+    let config = getConfig();
+    const response = await catApiAuth.post('/api/mybookings/',{},config)
                       .then(res => {
-                        console.log("success",res.data);
-
                         myBookings = res.data;
 
                         for(let i=0;i<res.data.length;i++) {
@@ -173,28 +173,24 @@ const getMyBookings = (dispatch) => async () => {
                             pastBookings.push(res.data[i]);
                           }
                         }
-                        //dispatch({type:'setMyBookings', payload:res.data});
                         success = true;
                       });
   } catch (err) {
-    console.log(err, err.response);
     dispatch({type:'add_error', payload: 'An issue occured retrieving your bookings.'});
   }
   return {success,myBookings,futureBookings,pastBookings};
 }
 
 
-const deleteBooking = (dispatch) => async (data) => {
+const deleteBooking = (dispatch) => async (payload) => {
   try {
-    console.log('data',data);
-    const response = await catApiAuth.delete('/api/deletebooking/', {data:data})
+    let config = getConfig();
+    const response = await catApiAuth.delete('/api/deletebooking/',{ data: payload, headers:config.headers})
                       .then(res => {
-                        console.log("success",res.data);
                         dispatch({type:'afterDelete', payload:res.data});
                       });
   } catch (err) {
-    console.log(err, err.response);
-    dispatch({type:'add_error', payload: 'An issue occured retrieving your bookings.'});
+    dispatch({type:'add_error', payload: 'An issue occured cancelling your booking.'});
   }
   return true;
 }
@@ -215,15 +211,12 @@ const getMenu = (dispatch) => async () => {
   let data = {};
 
   try {
-    console.log('data',data);
     const response = await catApi.get('/api/getmenu')
                       .then(res => {
-                        console.log("success",res.data);
                         success = true;
                         data = res.data;
                       });
   } catch (err) {
-    console.log(err, err.response);
     dispatch({type:'add_error', payload: 'An issue occured retrieving your bookings.'});
   }
   return {success,data};
@@ -232,7 +225,6 @@ const getMenu = (dispatch) => async () => {
 
 const sendContactMessage = (dispatch) => async (payload) => {
   let success = false;
-  console.log('PAYLOAD',payload);
   try {
     const response = await catApi.post('/api/contact',payload)
                       .then(res => {
@@ -244,7 +236,6 @@ const sendContactMessage = (dispatch) => async (payload) => {
                         success = true;
                       });
   } catch (err) {
-    console.log(err, err.response);
     dispatch({type:'add_error', payload: 'An issue occured sending this message.'});
   }
   return {success};

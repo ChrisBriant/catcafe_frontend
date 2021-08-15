@@ -20,7 +20,3 @@ const CatCard = props => {
 }
 
 export default CatCard;
-
-/*
-
-*/

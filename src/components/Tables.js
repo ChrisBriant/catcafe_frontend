@@ -4,8 +4,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import BookingDialog from './BookingDialog';
 import MessageDialog from './MessageDialog';
-//import {transformTableData} from '../helpers/general';
-//import floorplan from '../assets/cat_cafe_floor_plan.svg';
 import FloorPlan from './FloorPlan';
 
 
@@ -29,8 +27,6 @@ const Tables = props => {
   const cancelDialog = () => {
     setShowBookingDiag(false);
   }
-
-  console.log('ERROR', tables, displayTables);
 
   return (
     <>
@@ -63,5 +59,4 @@ const Tables = props => {
   )
 }
 
-//<img className="floorplan" alt="floor plan" src={floorplan}/>
 export default Tables;

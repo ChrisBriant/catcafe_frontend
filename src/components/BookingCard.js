@@ -1,4 +1,3 @@
-import {useEffect} from 'react';
 import Card from 'react-bootstrap/Card';
 import moment from 'moment';
 import Row from 'react-bootstrap/Row';
@@ -6,10 +5,6 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
 const BookingCard = props => {
-  useEffect( () => {
-    //Proccess the booking data to present on card
-    console.log(props.booking);
-  },[]);
 
   const getDisplayDate = (dateStr) => {
     return moment(dateStr).format('LLLL');

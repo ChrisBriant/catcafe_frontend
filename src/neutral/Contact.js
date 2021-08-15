@@ -17,8 +17,6 @@ const Contact = (props) => {
 
   const handleSend = async (e) => {
     e.preventDefault();
-    console.log("SENDING", bodyText);
-    //props.history.push('/home');
     const payload = {
       message : bodyText
     }
@@ -28,9 +26,7 @@ const Contact = (props) => {
         setMessage('Succesfully sent message');
         props.history.push('/home');
       } else {
-        console.log('FAILED');
         setMessage('There was an error sending this message.');
-        //props.history.push('/home');
       }
     }).catch(err => {
       setMessage('There was an error sending this message.');

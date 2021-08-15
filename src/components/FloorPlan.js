@@ -1,10 +1,8 @@
-//https://svg2jsx.com/
 import React from "react";
 
 const FloorPlan = props => {
 
   const bookTable = (tableNo) => {
-    console.log('table clicked', tableNo);
     props.bookTable(tableNo);
   }
 

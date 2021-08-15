@@ -11,12 +11,7 @@ import {Context} from '../context/AuthContext';
 import {Context as ApiContext} from '../context/ApiContext';
 
 const CookiesDialog = props => {
-  //const [show, setShow] = useState(false);
   const {iAcceptCookies, state:{cookiesAccepted}} = useContext(Context);
-
-  // const cancelDialog = () => {
-  //   props.cancelDialog();
-  // }
 
   const goToBookings = () => {
     props.history.push('/mybookings');

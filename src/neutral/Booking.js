@@ -19,9 +19,6 @@ import {Context as ApiContext} from '../context/ApiContext';
 const Booking = props => {
   const {state:{authed}} = useContext(Context);
   const {clearBooking,state:{dayView,tableView,bookingMade}} = useContext(ApiContext);
-  //const [showDiag,setShowDiag] = useState(false);
-
-  console.log("Hello",props.history);
 
   return (
       <>
