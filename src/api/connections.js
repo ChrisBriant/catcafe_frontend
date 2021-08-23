@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const multipartConn = axios.create({
-    baseURL: 'http://127.0.0.1:8000',
+    baseURL: 'https://catcafeapi.chrisbriant.uk',
     headers: {
         'Content-Type': 'multipart/form-data',
         'Authorization': `Bearer ${localStorage.getItem("access_token")}`
@@ -10,7 +10,7 @@ const multipartConn = axios.create({
 
 
 const catApiAuth = axios.create({
-    baseURL: 'http://127.0.0.1:8000',
+    baseURL: 'https://catcafeapi.chrisbriant.uk',
     headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem("access_token")}`
@@ -18,7 +18,7 @@ const catApiAuth = axios.create({
 });
 
 const catApi = axios.create({
-    baseURL: 'http://127.0.0.1:8000',
+    baseURL: 'https://catcafeapi.chrisbriant.uk',
     headers: {
         'Content-Type': 'application/json',
     }
